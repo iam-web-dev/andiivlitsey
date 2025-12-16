@@ -13,32 +13,47 @@ import Footer_main from "./Components/Footer/footer_main";
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <div>
-        {/* Header */}
-        <Poster_main /> {/* Yodgorbek */} {/* Not finished */}
-        <Info_section_main /> {/* Yodgorbek */} {/* Not finished */}
-        <Navbar_main /> {/* Yodgorbek */} {/* Not finished */}
-      </div>
-      <div>
-        {/* Body */}
-        <BrowserRouter>
+        <div>
+          {/* Header */}
+          <Poster_main /> {/* Yodgorbek */} {/* Not finished */}
+          <Info_section_main /> {/* Yodgorbek */} {/* Not finished */}
+          <Navbar_main /> {/* Yodgorbek */} {/* Not finished */}
+        </div>
+        <div>
+          {/* Body */}
           <Routes>
-            <Route path="/" element={<Home_main />} /> {/* Yodgorbek */} {/* Not finished */}
-            <Route path="/media" element={<Media_main />} /> {/* Ibrohimjon */} {/* Not finished */}
-            <Route path="/directions" element={<Directions_main />} /> {/* Yodgorbek */} {/* Not finished */}
-            <Route path="/news" element={<News_main />} /> {/* Ibrohimjon */} {/* Not finished */}
-            <Route path="/announcements" element={<Announcements_main />} /> {/* Yodgorbek */} {/* Not finished */}
-            <Route path="/about" element={<About_main />} /> {/* Ibrohimjon */} {/* Not finished */}
-            <Route path="/form" element={<Form_main />} /> {/* Ibrohimjon */} {/* Not finished */}
+            <Route path="/" element={<Home_main />} /> {/* Yodgorbek */}
+            {/* Not finished */}
+            <Route
+              path="/media"
+              element={<Media_main />}
+            /> {/* Ibrohimjon */} {/* Not finished */}
+            <Route path="/directions" element={<Directions_main />} />
+            {/* Yodgorbek */} {/* Not finished */}
+            <Route
+              path="/news"
+              element={<News_main />}
+            /> {/* Ibrohimjon */} {/* Not finished */}
+            <Route path="/announcements" element={<Announcements_main />} />
+            {/* Yodgorbek */} {/* Not finished */}
+            <Route
+              path="/about"
+              element={<About_main />}
+            /> {/* Ibrohimjon */} {/* Not finished */}
+            <Route
+              path="/form"
+              element={<Form_main />}
+            /> {/* Ibrohimjon */} {/* Not finished */}
           </Routes>
-        </BrowserRouter>
+        </div>
+        <div>
+          {/* Footer */}
+          <Footer_main /> {/* Ibrohimjon */} {/* Not finished */}
+        </div>
       </div>
-      <div>
-        {/* Footer */}
-        <Footer_main /> {/* Ibrohimjon */} {/* Not finished */}
-      </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Footer_main = () => {
   return (
-    <div>Footer_main</div>
-  )
-}
+    <div className="w-full h-[500px] bg-[#DDD] flex items-center justify-center text-[40px]">
+      Footer_main
+    </div>
+  );
+};
 
-export default Footer_main
+export default Footer_main;
