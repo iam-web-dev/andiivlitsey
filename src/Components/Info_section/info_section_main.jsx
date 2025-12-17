@@ -1,7 +1,10 @@
 import { Facebook, Headset, Instagram, Mail, Send } from "lucide-react";
 import React from "react";
 
-const Info_section_main = () => {
+const Info_section_main = ({ lang, setLang }) => {
+  function change_lang(l) {
+    setLang(l);
+  }
   return (
     <div className="w-full h-[60px] bg-[#FFD859] px-[110px] flex items-center justify-between text-[#303030]">
       <div className="flex flex-row gap-[20px]">
@@ -29,10 +32,31 @@ const Info_section_main = () => {
           </div>
         </div>
         <hr className="w-[24px] rotate-90 border-[#303030]" />
-        <div className="flex flex-row gap-[20px]">
-          <p className="text-[18px] text-[#9e7e16] font-[400] cursor-pointer">O'z</p>
-          <p className="text-[18px] text-[#303030] font-[400] cursor-pointer">Ру</p>
-          <p className="text-[18px] text-[#303030] font-[400] cursor-pointer">En</p>
+        <div className="flex flex-row gap-[20px] text-[#303030]">
+          <p
+            onClick={() => change_lang("uz")}
+            className={`text-[18px] ${
+              lang == "uz" && "text-[#906e00]"
+            } font-[400] cursor-pointer`}
+          >
+            O'z
+          </p>
+          <p
+            onClick={() => change_lang("ru")}
+            className={`text-[18px] ${
+              lang == "ru" && "text-[#906e00]"
+            } font-[400] cursor-pointer`}
+          >
+            Ру
+          </p>
+          <p
+            onClick={() => change_lang("en")}
+            className={`text-[18px] ${
+              lang == "en" && "text-[#906e00]"
+            } font-[400] cursor-pointer`}
+          >
+            En
+          </p>
         </div>
       </div>
     </div>
