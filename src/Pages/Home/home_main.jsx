@@ -55,7 +55,7 @@ const Home_main = () => {
   const handlePosterDot = (idx) => setCurrent(idx);
 
   return (
-    <div className="w-full flex flex-col items-center pb-[140px]">
+    <div className="w-full flex flex-col items-center">
       <div className="relative w-full h-[550px] overflow-hidden">
         {slides.map((slide, idx) => (
           <div
