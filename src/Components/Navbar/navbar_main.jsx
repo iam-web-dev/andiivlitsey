@@ -134,7 +134,7 @@ const Navbar_main = ({ lang, setLang }) => {
         <div className="flex flex-col h-full w-full">
           {/* Header inside dropdown */}
           <div className="flex flex-row items-center justify-between p-[20px] border-b border-white/20">
-            <p className="text-[16px] font-[700] leading-[120%] text-white">
+            <p className="text-[16px] font-[600] leading-[130%] text-white">
               Ichki ishlar vazirligi Andijon <br /> viloyati akademik litseyi
             </p>
             <button onClick={() => setMobileOpen(false)} className="text-white hover:text-[#FFD859] transition-colors p-2">
@@ -185,7 +185,6 @@ const Navbar_main = ({ lang, setLang }) => {
               ))}
             </div>
 
-            {/* Social Media & Lang (Column Layout) */}
             <div className="flex flex-col gap-[20px] mt-4 w-full items-center">
               <div className="flex flex-row items-center justify-center gap-[30px]">
                 <div className="cursor-pointer hover:scale-[102%] active:scale-[99%] duration-300 text-white hover:text-[#FFD859]">
@@ -208,7 +207,6 @@ const Navbar_main = ({ lang, setLang }) => {
               </div>
             </div>
 
-            {/* Ariza Button */}
             <Link
               to={"/form"}
               className="mt-2 w-full text-center py-3 rounded-[5px] bg-[#FFD859] text-[#14386F] hover:bg-white hover:text-[#14386F] duration-300 font-[700]"
@@ -220,7 +218,6 @@ const Navbar_main = ({ lang, setLang }) => {
         </div>
       </div>
 
-      {/* Dark overlay for the rest of the screen when menu is open */}
       {mobileOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full bg-black/50 z-[105] md:hidden transition-opacity duration-300"

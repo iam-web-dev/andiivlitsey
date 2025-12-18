@@ -10,8 +10,8 @@ const Info_section_main = ({ lang, setLang }) => {
       <div className="flex flex-row gap-[20px]">
         <div className="flex flex-row gap-[5px] justify-center items-center hover:scale-[102%] active:scale-[99%] cursor-pointer duration-300">
           <Headset className="shrink-0 md:w-[22px] md:h-[22px] w-[15px] h-[15px]" />
-          <p className="xl:text-[18px] lg:text-[16px] md:text-[14px] text-[13px] font-[400] whitespace-nowrap">
-            +998 (71) 231-77-01 <span className="md:block hidden">(navbatchi)</span>
+          <p className="xl:text-[18px] flex gap-[3px] lg:text-[16px] md:text-[14px] text-[13px] font-[400] whitespace-nowrap">
+            +998 (71) 231-77-01<span className="md:block hidden">(navbatchi)</span>
           </p>
         </div>
         <div className="flex flex-row gap-[5px] justify-center items-center hover:scale-[102%] active:scale-[99%] cursor-pointer duration-300">
