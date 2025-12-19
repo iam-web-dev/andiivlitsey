@@ -116,7 +116,6 @@ const Navbar_main = ({ lang, setLang }) => {
           </div>
 
           <div className="md:hidden flex items-center z-[101]">
-            {/* Only show hamburger here, close button is inside the menu */}
             {!mobileOpen && (
               <button onClick={() => setMobileOpen(true)} className="text-[#303030] hover:text-[#14386F] transition-colors p-2">
                 <Menu size={30} />
@@ -124,17 +123,15 @@ const Navbar_main = ({ lang, setLang }) => {
             )}
           </div>
         </div>
-        <hr className="w-full border-[#cccccc] hidden md:block" />
+        <hr className="w-full border-[#cccccc]" />
       </div>
 
-      {/* Overlay Mobile Menu */}
       <div
         className={`fixed top-0 left-0 w-full bg-[#14386F]/95 shadow-2xl flex flex-col transition-all duration-500 ease-in-out md:hidden z-[110] backdrop-blur-[1px]
           ${mobileOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}
         style={{ height: 'auto', maxHeight: '90vh' }}
       >
         <div className="flex flex-col h-full w-full">
-          {/* Header inside dropdown */}
           <div className="flex flex-row items-center justify-between p-[20px] border-b border-white/20">
             <p className="text-[16px] font-[600] leading-[130%] text-white">
               {lang === "uz" ? "Ichki ishlar vazirligi Andijon" : lang === "en" ? "MIA Andijan" : "МВД Андижанский"} <br /> {lang === "uz" ? "viloyati akademik litseyi" : lang === "en" ? "regional academic lyceum" : "областной академический лицей"}
@@ -145,7 +142,6 @@ const Navbar_main = ({ lang, setLang }) => {
           </div>
 
           <div className="flex flex-col gap-4 px-[20px] py-6 overflow-y-auto w-full">
-            {/* Routes */}
             <div className="flex flex-col w-full">
               {path_list.map((item, idx) => (
                 <div key={idx} className="flex flex-col w-full">

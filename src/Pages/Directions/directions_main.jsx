@@ -13,8 +13,8 @@ const Directions_main = ({ lang }) => {
   const currentDirection = currentId ? directionsData.find(d => d.id === currentId) : null;
 
   return (
-    <div className='mx-[110px] min-h-[60vh]'>
-      <div className='text-[18px] font-[500] flex items-center gap-[10px] mt-[30px]'>
+    <div className='md:mx-[60px] lg:mx-[110px] mx-[20px] min-h-[60vh]'>
+      <div className='sm:text-[18px] text-[14px] font-[500] flex items-center gap-[10px] mt-[30px]'>
         <Link to={"/"} className='hover:text-[#cfa92d] duration-200'>
           {lang === "uz" ? "Bosh sahifa" : lang === "en" ? "Home" : "Главная"}
         </Link>

@@ -37,7 +37,7 @@ function App() {
       <div className="sticky top-0 z-50 bg-white">
         <Navbar lang={lang} setLang={setLang} />
       </div>
-      <div className="pb-[140px]">
+      <div className="md:pb-[140px] pb-[70px]">
         {/* Body */}
         <Routes>
           <Route path="/" element={<Home lang={lang} />} /> {/* Yodgorbek */}
