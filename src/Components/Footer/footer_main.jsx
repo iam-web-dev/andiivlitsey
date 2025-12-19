@@ -15,9 +15,9 @@ const Footer_main = () => {
           <div className="flex flex-col gap-[20px]">
             <h1 className="font-inter font-[600] text-[20px] leading-[100%] text-[#FFFFFF]">Ijtimoiy tarmoqlar</h1>
             <div className="flex flex-row gap-[30px]">
-              <img src={facebook} />
-              <img src={instagram} />
-              <img src={telegram} />
+              <img src={facebook} alt="Facebook" loading="lazy" />
+              <img src={instagram} alt="Instagram" loading="lazy" />
+              <img src={telegram} alt="Telegram" loading="lazy" />
             </div>
           </div>
 
