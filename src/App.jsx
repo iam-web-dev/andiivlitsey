@@ -13,11 +13,11 @@ import Footer from "./Components/Footer/footer_main";
 import { useEffect, useState } from "react";
 import Not_found from "./Components/Not_found/not_found_main";
 
-function App() {
+function App() { 
   const [lang, setLang] = useState("uz");
   useEffect(() => {
     !localStorage.getItem("lang") && localStorage.setItem("lang", "uz");
-  }, []);
+  }, []); 
   useEffect(() => {
     localStorage.setItem("lang", lang);
   }, [lang]);
@@ -34,21 +34,21 @@ function App() {
         <div className="bg-gray-100">
           {/* Body */}
           <Routes>
-            <Route path="/" element={<Home />} /> {/* Yodgorbek */}
-            <Route path="/media/*" element={<Media />} /> {/* Ibrohimjon */}
+            <Route path="/" element={<Home />} /> {/* Webdev */}
+            <Route path="/media/*" element={<Media />} /> {/* Muhammad */}
             <Route path="/directions/*" element={<Directions />} />
-            {/* Yodgorbek */}
-            <Route path="/news/*" element={<News />} /> {/* Ibrohimjon */}
+            {/* Webdew */}
+            <Route path="/news/*" element={<News />} /> {/* Muhammad */}
             <Route path="/announcements/*" element={<Announcements />} />
-            {/* Yodgorbek */}
-            <Route path="/about/*" element={<About />} /> {/* Ibrohimjon */}
-            <Route path="/form" element={<Form />} /> {/* Ibrohimjon */}
-            <Route path="*" element={<Not_found />} /> {/* Ibrohimjon */}
+            {/* Webdew */}
+            <Route path="/about/*" element={<About />} /> {/* Muhammad */}
+            <Route path="/form" element={<Form />} /> {/* Muhammad */}
+            <Route path="*" element={<Not_found />} /> {/* Muhammad */}
           </Routes>
         </div>
         <div>
           {/* Footer */}
-          <Footer /> {/* Ibrohimjon */}
+          <Footer /> {/* Muhammad done */}
         </div>
       </div>
     </BrowserRouter>

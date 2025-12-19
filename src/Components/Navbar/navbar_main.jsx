@@ -24,7 +24,7 @@ const Navbar_main = () => {
   ];
 
   return (
-    <div className="w-full sticky h-[105px] flex px-[110px] items-center justify-between text-[#303030]">
+    <div className="w-full sticky h-[105px] flex px-[110px] items-center justify-between text-[#303030] border-b-[1px] border-b-[#E0E0E0]">
       <Link to={"/"} className="flex items-center gap-[10px]">
         <img src={logo} alt="logo" className="w-[60px] h-[60px]" />
         <p className="text-[20px] font-[700] leading-[120%]">
