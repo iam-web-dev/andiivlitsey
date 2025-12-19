@@ -23,6 +23,7 @@ const Navbar_main = ({ lang, setLang }) => {
 
   function change_lang(l) {
     if (setLang) setLang(l);
+    setMobileOpen(false);
   }
 
   const isActive = (path) => {

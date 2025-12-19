@@ -1,6 +1,40 @@
-import { directionsData } from './data'
+import { useEffect, useState } from 'react';
+import { DirectionsService } from '../../services/directions';
 
 const Directs = ({ lang }) => {
+    const [directionsList, setDirectionsList] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchDirections = async () => {
+            setLoading(true);
+            try {
+                const data = await DirectionsService.getDirections();
+                if (data && data.results) {
+                    setDirectionsList(data.results);
+                }
+            } catch (error) {
+                console.error("Failed to fetch directions:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchDirections();
+    }, []);
+
+    const getTranslated = (item, field) => {
+        const key = `${field}_${lang}`;
+        return item[key] || item[field] || "";
+    };
+
+    if (loading) {
+        return (
+            <div className="h-[400px] flex items-center justify-center">
+                <div className="loader"></div>
+            </div>
+        );
+    }
+
     return (
         <div>
             <div className="flex flex-row items-center justify-between mb-[30px]">
@@ -10,22 +44,35 @@ const Directs = ({ lang }) => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] w-full">
-                {directionsData.map((item) => (
-                    <div key={item.id} onClick={() => window.location.href = `/directions/${item.id}`} className="w-full flex flex-col items-between justify-between bg-[#F4F4F4] hover:bg-[#FFD859] rounded-[8px] duration-300 cursor-pointer min-h-[300px]">
+                {directionsList.map((item) => (
+                    <div
+                        key={item.id}
+                        onClick={() => window.location.href = `/directions/${item.id}`}
+                        className="w-full flex flex-col justify-between bg-[#F4F4F4] hover:bg-[#FFD859] rounded-[8px] duration-300 cursor-pointer min-h-[300px]"
+                    >
                         <div className="md:p-[30px] sm:p-[25px] p-[20px] md:text-[18px] sm:text-[16px] text-[14px] font-[400] text-[#303030] flex flex-row items-center justify-end gap-[10px]">
-                            <p>{item.students} {lang === "uz" ? "nafar o'quvchi" : lang === "en" ? "students" : "студентов"}</p>
-                            <hr className='w-[1px] md:h-[22px] h-[16px] bg-[#303030]' />
-                            <p>{item.lang}</p>
+                            {item.quota !== undefined && item.quota !== null && (
+                                <>
+                                    <p>{item.quota} {lang === "uz" ? "nafar o'quvchi" : lang === "en" ? "students" : "студентов"}</p>
+                                    <hr className='w-[1px] md:h-[22px] h-[16px] bg-[#303030]' />
+                                </>
+                            )}
+                            <p>{getTranslated(item, 'language')}</p>
                         </div>
+
                         <div className="md:px-[30px] md:py-[40px] sm:px-[25px] sm:py-[30px] px-[20px] py-[20px] flex flex-col gap-[10px]">
-                            <p className="md:text-[24px] sm:text-[20px] text-[20px] font-[700] text-[#303030]">{item.title}</p>
-                            <p className="md:text-[18px] sm:text-[16px] text-[14px] font-[400] text-[#303030]">{item.description}</p>
+                            <p className="md:text-[24px] sm:text-[20px] text-[20px] font-[700] text-[#303030]">
+                                {getTranslated(item, 'title')}
+                            </p>
+                            <p className="md:text-[18px] sm:text-[16px] text-[14px] font-[400] text-[#303030] line-clamp-3">
+                                {getTranslated(item, 'description')}
+                            </p>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Directs
+export default Directs;
