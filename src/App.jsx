@@ -42,10 +42,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home lang={lang} />} /> {/* Yodgorbek */}
           <Route path="/media/*" element={<Media />} /> {/* Ibrohimjon */}
-          <Route path="/directions/*" element={<Directions />} />
+          <Route path="/directions/*" element={<Directions lang={lang} />} />
           {/* Yodgorbek */}
           <Route path="/news/*" element={<News />} /> {/* Ibrohimjon */}
-          <Route path="/announcements/*" element={<Announcements />} />
+          <Route path="/announcements/*" element={<Announcements lang={lang} />} />
           {/* Yodgorbek */}
           <Route path="/about/*" element={<About />} /> {/* Ibrohimjon */}
           <Route path="/form" element={<Form />} /> {/* Ibrohimjon */}
