@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import Not_found from "./Components/Not_found/not_found_main";
 
 function App() {
-  const [lang, setLang] = useState("uz");
+  const [lang, setLang] = useState(localStorage.getItem("lang") || "uz");
   const location = useLocation();
 
   useEffect(() => {
@@ -26,15 +26,12 @@ function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    !localStorage.getItem("lang") && localStorage.setItem("lang", "uz");
-  }, []);
-  useEffect(() => {
     localStorage.setItem("lang", lang);
   }, [lang]);
   return (
     <div>
       <div className="sticky top-0 z-40 shadow-2xl">
-        <Poster />
+        <Poster lang={lang} />
       </div>
       <Info_section lang={lang} setLang={setLang} />
       <div className="sticky top-0 z-50 bg-white">
@@ -43,7 +40,7 @@ function App() {
       <div className="pb-[140px]">
         {/* Body */}
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Yodgorbek */}
+          <Route path="/" element={<Home lang={lang} />} /> {/* Yodgorbek */}
           <Route path="/media/*" element={<Media />} /> {/* Ibrohimjon */}
           <Route path="/directions/*" element={<Directions />} />
           {/* Yodgorbek */}

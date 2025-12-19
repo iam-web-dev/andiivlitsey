@@ -5,53 +5,9 @@ import simg2 from "./imgs/simg2.png";
 import simg3 from "./imgs/simg3.jpg";
 import { Link } from "react-router";
 
-const slides = [
-  {
-    img: simg1,
-    category: "Yangiliklar",
-    date: "12-dekabr, 2025",
-    views: 7042,
-    title: "Korrupsiyasiz jamiyat – barqaror rivojlanish asosi",
-    desc: "Akademik litseyimizda maxsus tadbir tashkillashtirildi.",
-  },
-  {
-    img: simg2,
-    category: "Yangiliklar",
-    date: "13-dekabr, 2025",
-    views: 5021,
-    title: "Yangi o‘quv yili boshlanishi",
-    desc: "Talabalar va o‘qituvchilar bilan tanishtirish tadbiri o‘tkazildi.",
-  },
-  {
-    img: simg3,
-    category: "Yangiliklar",
-    date: "14-dekabr, 2025",
-    views: 6300,
-    title: "Innovatsion loyihalar tanlovi",
-    desc: "Litseyimiz talabalari innovatsion loyihalar bilan ishtirok etdilar.",
-  },
-];
-
-const mediaItems = [
-  { type: "video", date: "12-dekabr, 2025", title: "Video lavha 1" },
-  { type: "photo", date: "13-dekabr, 2025", title: "Rasm lavha 2" },
-  { type: "video", date: "14-dekabr, 2025", title: "Video lavha 3" },
-  { type: "photo", date: "15-dekabr, 2025", title: "Rasm lavha 4" },
-  { type: "video", date: "16-dekabr, 2025", title: "Video lavha 5" },
-  { type: "photo", date: "17-dekabr, 2025", title: "Rasm lavha 6" },
-];
-
-const Home_main = () => {
+const Home_main = ({ lang }) => {
   const [current, setCurrent] = useState(0);
   const [mediaCurrent, setMediaCurrent] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 10000);
-    return () => clearInterval(timer);
-  }, []);
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -62,7 +18,52 @@ const Home_main = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const slides = [
+    {
+      img: simg1,
+      category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
+      date: "12-dekabr, 2025",
+      views: 7042,
+      title: lang === "uz" ? "Korrupsiyasiz jamiyat – barqaror rivojlanish asosi" : lang === "en" ? "Corruption-free society – basis of stable development" : "Общество без коррупции – основа устойчивого развития",
+      desc: lang === "uz" ? "Akademik litseyimizda maxsus tadbir tashkillashtirildi." : lang === "en" ? "Special event organized in our academic lyceum." : "В нашем академическом лицее было организовано специальное мероприятие.",
+    },
+    {
+      img: simg2,
+      category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
+      date: "13-dekabr, 2025",
+      views: 5021,
+      title: lang === "uz" ? "Yangi o‘quv yili boshlanishi" : lang === "en" ? "Start of new academic year" : "Начало нового учебного года",
+      desc: lang === "uz" ? "Talabalar va o‘qituvchilar bilan tanishtirish tadbiri o‘tkazildi." : lang === "en" ? "Introduction event for students and teachers." : "Проведено мероприятие знакомства со студентами и преподавателями.",
+    },
+    {
+      img: simg3,
+      category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
+      date: "14-dekabr, 2025",
+      views: 6300,
+      title: lang === "uz" ? "Innovatsion loyihalar tanlovi" : lang === "en" ? "Innovative projects contest" : "Конкурс инновационных проектов",
+      desc: lang === "uz" ? "Litseyimiz talabalari innovatsion loyihalar bilan ishtirok etdilar." : lang === "en" ? "Our lyceum students participated with innovative projects." : "Студенты нашего лицея участвовали с инновационными проектами.",
+    },
+  ];
+
+  const mediaItems = [
+    { type: "video", date: "12-dekabr, 2025", title: lang === "uz" ? "Video lavha 1" : lang === "en" ? "Video clip 1" : "Видео ролик 1" },
+    { type: "photo", date: "13-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 2" : lang === "en" ? "Photo gallery 2" : "Фото галерея 2" },
+    { type: "video", date: "14-dekabr, 2025", title: lang === "uz" ? "Video lavha 3" : lang === "en" ? "Video clip 3" : "Видео ролик 3" },
+    { type: "photo", date: "15-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 4" : lang === "en" ? "Photo gallery 4" : "Фото галерея 4" },
+    { type: "video", date: "16-dekabr, 2025", title: lang === "uz" ? "Video lavha 5" : lang === "en" ? "Video clip 5" : "Видео ролик 5" },
+    { type: "photo", date: "17-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 6" : lang === "en" ? "Photo gallery 6" : "Фото галерея 6" },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 10000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   const handlePosterDot = (idx) => setCurrent(idx);
+
+  const announcementIds = windowWidth < 640 ? [1, 2, 3] : [1, 2, 3, 4, 5, 6];
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -114,14 +115,14 @@ const Home_main = () => {
       <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[60px] sm:mt-[80px]">
         <div className="flex flex-row items-center justify-between">
           <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
-            E'lonlar
+            {lang === "uz" ? "E'lonlar" : lang === "en" ? "Announcements" : "Объявления"}
           </p>
           <Link to="/announcements" className="sm:text-[18px] text-[16px] text-[#cfa92d] font-[400] hover:scale-[102%] active:scale-[99%] duration-300">
-            Barchasi
+            {lang === "uz" ? "Barchasi" : lang === "en" ? "All" : "Все"}
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px] mt-[20px] sm:mt-[30px]">
-          {[1, 2, 3, 4, 5, 6].map((id) => (
+          {announcementIds.map((id) => (
             <Link key={id} to={`/announcements/${id}`} className="pl-[20px] pr-[20px] flex flex-col gap-[10px] py-[30px] w-full border border-[#52525289] rounded-[10px] shadow-lg hover:shadow-xl hover:scale-[102%] active:scale-[99%] duration-300 group cursor-pointer">
               <div className="flex flex-row items-center text-[16px] sm:text-[18px] text-[#52525289] leading-[130%] gap-[10px]">
                 <div>12-dekabr, 2025</div>
@@ -131,10 +132,10 @@ const Home_main = () => {
                 </div>
               </div>
               <p className="text-[20px] sm:text-[24px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%]">
-                Dissertatsiya himoyasi bo‘yicha e’lon
+                {lang === "uz" ? "Dissertatsiya himoyasi bo‘yicha e’lon" : lang === "en" ? "Announcement on dissertation defense" : "Объявление о защите диссертации"}
               </p>
               <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%]">
-                Nomzodlar dissertatsiya ishlarini himoya qilishlari mumkin.
+                {lang === "uz" ? "Nomzodlar dissertatsiya ishlarini himoya qilishlari mumkin." : lang === "en" ? "Candidates can defend their dissertations." : "Кандидаты могут защитить свои диссертации."}
               </p>
             </Link>
           ))}
@@ -188,7 +189,9 @@ const Home_main = () => {
             {mediaItems.map((item, idx) => (
               <div key={idx} className={`flex-shrink-0 ${windowWidth < 640 ? 'w-full mr-[15px]' : 'w-[600px] mr-[20px]'}`}>
                 <div className="bg-gray-300 w-full h-[250px] sm:h-[400px] rounded-[6px] flex items-center justify-center text-[24px] font-[700] text-[#303030]">
-                  {item.type === "video" ? "Video" : "Photo"}
+                  {item.type === "video"
+                    ? (lang === "uz" ? "Video" : lang === "en" ? "Video" : "Видео")
+                    : (lang === "uz" ? "Rasm" : lang === "en" ? "Photo" : "Фото")}
                 </div>
                 <div className="mt-3 text-[16px] sm:text-[18px] text-[#303030]">
                   <p className="font-[400]">{item.date}</p>

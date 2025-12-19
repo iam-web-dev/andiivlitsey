@@ -33,17 +33,17 @@ const Navbar_main = ({ lang, setLang }) => {
   const path_list = [
     {
       path: "/about",
-      name: "Litsey haqida",
+      name: lang === "uz" ? "Litsey haqida" : lang === "en" ? "About Lyceum" : "О лицее",
       select: [
-        { path: "/about/history", name: "Litsey tarixi" },
-        { path: "/about/team", name: "Rahbariyat" },
-        { path: "/about/offer", name: "Litsey nizomi" },
+        { path: "/about/history", name: lang === "uz" ? "Litsey tarixi" : lang === "en" ? "Lyceum History" : "История лицея" },
+        { path: "/about/team", name: lang === "uz" ? "Rahbariyat" : lang === "en" ? "Administration" : "Руководство" },
+        { path: "/about/offer", name: lang === "uz" ? "Litsey nizomi" : lang === "en" ? "Lyceum Charter" : "Устав лицея" },
       ],
     },
-    { path: "/directions", name: "Yo'nalishlar", select: [] },
-    { path: "/news", name: "Yangiliklar", select: [] },
-    { path: "/announcements", name: "E'lonlar", select: [] },
-    { path: "/media", name: "Media", select: [] },
+    { path: "/directions", name: lang === "uz" ? "Yo'nalishlar" : lang === "en" ? "Directions" : "Направления", select: [] },
+    { path: "/news", name: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости", select: [] },
+    { path: "/announcements", name: lang === "uz" ? "E'lonlar" : lang === "en" ? "Announcements" : "Объявления", select: [] },
+    { path: "/media", name: lang === "uz" ? "Media" : lang === "en" ? "Media" : "Медиа", select: [] },
   ];
 
   return (
@@ -53,7 +53,7 @@ const Navbar_main = ({ lang, setLang }) => {
           <Link to={"/"} className="flex items-center gap-[10px]">
             <img src={logo} alt="logo" className="xl:w-[60px] xl:h-[60px] lg:w-[50px] lg:h-[50px] w-[45px] h-[45px]" />
             <p className="xl:text-[20px] lg:text-[15px] md:text-[13px] text-[14px] font-[700] leading-[120%] whitespace-nowrap">
-              Ichki ishlar vazirligi Andijon <br /> viloyati akademik litseyi
+              {lang === "uz" ? "Ichki ishlar vazirligi Andijon" : lang === "en" ? "MIA Andijan" : "МВД Андижанский"} <br /> {lang === "uz" ? "viloyati akademik litseyi" : lang === "en" ? "regional academic lyceum" : "областной академический лицей"}
             </p>
           </Link>
 
@@ -109,7 +109,9 @@ const Navbar_main = ({ lang, setLang }) => {
               </div>
             ))}
             <Link to={"/form"} className={`xl:px-[20px] xl:py-[15px] lg:px-[13px] lg:py-[11px] md:px-[10px] md:py-[8px] whitespace-nowrap rounded-[5px] bg-[#FFD859] hover:bg-[#14386F] hover:text-white duration-300`} >
-              <p className="xl:text-[16px] lg:text-[13px] md:text-[12px] font-[500]">Ariza qoldirish</p>
+              <p className="xl:text-[16px] lg:text-[13px] md:text-[12px] font-[500]">
+                {lang === "uz" ? "Ariza qoldirish" : lang === "en" ? "Submit application" : "Оставить заявку"}
+              </p>
             </Link>
           </div>
 
@@ -135,7 +137,7 @@ const Navbar_main = ({ lang, setLang }) => {
           {/* Header inside dropdown */}
           <div className="flex flex-row items-center justify-between p-[20px] border-b border-white/20">
             <p className="text-[16px] font-[600] leading-[130%] text-white">
-              Ichki ishlar vazirligi Andijon <br /> viloyati akademik litseyi
+              {lang === "uz" ? "Ichki ishlar vazirligi Andijon" : lang === "en" ? "MIA Andijan" : "МВД Андижанский"} <br /> {lang === "uz" ? "viloyati akademik litseyi" : lang === "en" ? "regional academic lyceum" : "областной академический лицей"}
             </p>
             <button onClick={() => setMobileOpen(false)} className="text-white hover:text-[#FFD859] transition-colors p-2">
               <X size={30} />
@@ -212,7 +214,7 @@ const Navbar_main = ({ lang, setLang }) => {
               className="mt-2 w-full text-center py-3 rounded-[5px] bg-[#FFD859] text-[#14386F] hover:bg-white hover:text-[#14386F] duration-300 font-[700]"
               onClick={() => setMobileOpen(false)}
             >
-              Ariza qoldirish
+              {lang === "uz" ? "Ariza qoldirish" : lang === "en" ? "Submit application" : "Оставить заявку"}
             </Link>
           </div>
         </div>
