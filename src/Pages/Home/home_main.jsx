@@ -5,57 +5,68 @@ import simg2 from "./imgs/simg2.png";
 import simg3 from "./imgs/simg3.jpg";
 import { Link } from "react-router";
 
-const slides = [
-  {
-    img: simg1,
-    category: "Yangiliklar",
-    date: "12-dekabr, 2025",
-    views: 7042,
-    title: "Korrupsiyasiz jamiyat – barqaror rivojlanish asosi",
-    desc: "Akademik litseyimizda maxsus tadbir tashkillashtirildi.",
-  },
-  {
-    img: simg2,
-    category: "Yangiliklar",
-    date: "13-dekabr, 2025",
-    views: 5021,
-    title: "Yangi o‘quv yili boshlanishi",
-    desc: "Talabalar va o‘qituvchilar bilan tanishtirish tadbiri o‘tkazildi.",
-  },
-  {
-    img: simg3,
-    category: "Yangiliklar",
-    date: "14-dekabr, 2025",
-    views: 6300,
-    title: "Innovatsion loyihalar tanlovi",
-    desc: "Litseyimiz talabalari innovatsion loyihalar bilan ishtirok etdilar.",
-  },
-];
-
-const mediaItems = [
-  { type: "video", date: "12-dekabr, 2025", title: "Video lavha 1" },
-  { type: "photo", date: "13-dekabr, 2025", title: "Rasm lavha 2" },
-  { type: "video", date: "14-dekabr, 2025", title: "Video lavha 3" },
-  { type: "photo", date: "15-dekabr, 2025", title: "Rasm lavha 4" },
-  { type: "video", date: "16-dekabr, 2025", title: "Video lavha 5" },
-  { type: "photo", date: "17-dekabr, 2025", title: "Rasm lavha 6" },
-];
-
-const Home_main = () => {
+const Home_main = ({ lang }) => {
   const [current, setCurrent] = useState(0);
   const [mediaCurrent, setMediaCurrent] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const slides = [
+    {
+      img: simg1,
+      category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
+      date: "12-dekabr, 2025",
+      views: 7042,
+      title: lang === "uz" ? "Korrupsiyasiz jamiyat – barqaror rivojlanish asosi" : lang === "en" ? "Corruption-free society – basis of stable development" : "Общество без коррупции – основа устойчивого развития",
+      desc: lang === "uz" ? "Akademik litseyimizda maxsus tadbir tashkillashtirildi." : lang === "en" ? "Special event organized in our academic lyceum." : "В нашем академическом лицее было организовано специальное мероприятие.",
+    },
+    {
+      img: simg2,
+      category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
+      date: "13-dekabr, 2025",
+      views: 5021,
+      title: lang === "uz" ? "Yangi o‘quv yili boshlanishi" : lang === "en" ? "Start of new academic year" : "Начало нового учебного года",
+      desc: lang === "uz" ? "Talabalar va o‘qituvchilar bilan tanishtirish tadbiri o‘tkazildi." : lang === "en" ? "Introduction event for students and teachers." : "Проведено мероприятие знакомства со студентами и преподавателями.",
+    },
+    {
+      img: simg3,
+      category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
+      date: "14-dekabr, 2025",
+      views: 6300,
+      title: lang === "uz" ? "Innovatsion loyihalar tanlovi" : lang === "en" ? "Innovative projects contest" : "Конкурс инновационных проектов",
+      desc: lang === "uz" ? "Litseyimiz talabalari innovatsion loyihalar bilan ishtirok etdilar." : lang === "en" ? "Our lyceum students participated with innovative projects." : "Студенты нашего лицея участвовали с инновационными проектами.",
+    },
+  ];
+
+  const mediaItems = [
+    { type: "video", date: "12-dekabr, 2025", title: lang === "uz" ? "Video lavha 1" : lang === "en" ? "Video clip 1" : "Видео ролик 1" },
+    { type: "photo", date: "13-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 2" : lang === "en" ? "Photo gallery 2" : "Фото галерея 2" },
+    { type: "video", date: "14-dekabr, 2025", title: lang === "uz" ? "Video lavha 3" : lang === "en" ? "Video clip 3" : "Видео ролик 3" },
+    { type: "photo", date: "15-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 4" : lang === "en" ? "Photo gallery 4" : "Фото галерея 4" },
+    { type: "video", date: "16-dekabr, 2025", title: lang === "uz" ? "Video lavha 5" : lang === "en" ? "Video clip 5" : "Видео ролик 5" },
+    { type: "photo", date: "17-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 6" : lang === "en" ? "Photo gallery 6" : "Фото галерея 6" },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const handlePosterDot = (idx) => setCurrent(idx);
 
+  const announcementIds = windowWidth < 640 ? [1, 2, 3] : [1, 2, 3, 4, 5, 6];
+
   return (
-    <div className="w-full flex flex-col items-center pb-[140px]">
+    <div className="w-full flex flex-col items-center">
       <div className="relative w-full h-[550px] overflow-hidden">
         {slides.map((slide, idx) => (
           <div
@@ -64,20 +75,20 @@ const Home_main = () => {
               }`}
           >
             <div className="absolute bg-[#303030] opacity-60 w-full h-full z-10" />
-            <div className="absolute w-full pl-[110px] pb-[120px] flex flex-col text-white justify-end gap-[10px] h-full z-20">
-              <div className="flex flex-row items-center text-[18px] leading-[120%] gap-[8px]">
+            <div className="absolute w-full xl:pl-[110px] lg:pl-[80px] sm:pl-[60px] pl-[20px] xl:pb-[120px] lg:pb-[80px] sm:pb-[60px] pb-[40px] flex flex-col text-white justify-end gap-[10px] h-full z-20">
+              <div className="flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
                 <div>{slide.category}</div>
                 <hr className="w-[22px] rotate-90" />
                 <div>{slide.date}</div>
                 <hr className="w-[22px] rotate-90" />
-                <div className="flex flex-row gap-[7px]">
+                <div className="flex flex-row gap-[5px] sm:gap-[7px]">
                   <Eye width={22} height={22} /> {slide.views}
                 </div>
               </div>
-              <p className="text-[42px] text-[#FFD859] font-[700] max-w-[50%] leading-[120%]">
+              <p className="text-[32px] sm:text-[36px] md:text-[38px] lg:text-[42px] text-[#FFD859] font-[700] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%]">
                 {slide.title}
               </p>
-              <p className="text-[18px] font-[400] max-w-[50%] leading-[120%]">
+              <p className="text-[16px] sm:text-[16px] lg:text-[18px] font-[400] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%]">
                 {slide.desc}
               </p>
             </div>
@@ -101,67 +112,66 @@ const Home_main = () => {
         ))}
       </div>
 
-      <div className="w-full px-[110px] mt-[80px]">
+      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[60px] sm:mt-[80px]">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-[36px] text-[#303030] font-[700] tracking-tight">
-            E'lonlar
+          <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
+            {lang === "uz" ? "E'lonlar" : lang === "en" ? "Announcements" : "Объявления"}
           </p>
-          <Link to="/announcements" className="text-[18px] text-[#cfa92d] font-[400] hover:scale-[102%] active:scale-[99%] duration-300">
-            Barchasi
+          <Link to="/announcements" className="sm:text-[18px] text-[16px] text-[#cfa92d] font-[400] hover:scale-[102%] active:scale-[99%] duration-300">
+            {lang === "uz" ? "Barchasi" : lang === "en" ? "All" : "Все"}
           </Link>
         </div>
-        <div className="flex w-full justify-center gap-[20px] flex-wrap mt-[30px]">
-          {[1, 2, 3, 4, 5, 6].map((id) => (
-            <Link to={`/announcements/${id}`} className="pl-[20px] pr-[40px] flex flex-col gap-[10px] py-[40px] lg:w-full xl:w-[40%] border border-[#52525289] rounded-[10px] shadow-lg hover:shadow-xl hover:scale-[102%] active:scale-[99%] duration-300 group cursor-pointer">
-              <div className="flex flex-row items-center text-[18px] text-[#52525289] leading-[130%] gap-[10px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px] mt-[20px] sm:mt-[30px]">
+          {announcementIds.map((id) => (
+            <Link key={id} to={`/announcements/${id}`} className="pl-[20px] pr-[20px] flex flex-col gap-[10px] py-[30px] w-full border border-[#52525289] rounded-[10px] shadow-lg hover:shadow-xl hover:scale-[102%] active:scale-[99%] duration-300 group cursor-pointer">
+              <div className="flex flex-row items-center text-[16px] sm:text-[18px] text-[#52525289] leading-[130%] gap-[10px]">
                 <div>12-dekabr, 2025</div>
                 <hr className="w-[22px] rotate-90" />
                 <div className="flex flex-row gap-[7px]">
                   <Eye width={22} height={22} /> 7042
                 </div>
               </div>
-              <p className="text-[24px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%]">
-                Dissertatsiya himoyasi bo‘yicha e’lon Dissertats himoyasi
-                bo‘yicha e’lon
+              <p className="text-[20px] sm:text-[24px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%]">
+                {lang === "uz" ? "Dissertatsiya himoyasi bo‘yicha e’lon" : lang === "en" ? "Announcement on dissertation defense" : "Объявление о защите диссертации"}
               </p>
-              <p className="text-[18px] text-[#525252] font-[400] leading-[130%]">
-                Nomzodlar dissertatsiya ishlarini himoya qilishlari mumkin.
+              <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%]">
+                {lang === "uz" ? "Nomzodlar dissertatsiya ishlarini himoya qilishlari mumkin." : lang === "en" ? "Candidates can defend their dissertations." : "Кандидаты могут защитить свои диссертации."}
               </p>
             </Link>
           ))}
         </div>
       </div>
 
-      <div className="w-full px-[110px] mt-[80px]">
+      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px]">
         <div className="flex flex-row items-center justify-between mb-5">
-          <p className="text-[36px] text-[#303030] font-[700] tracking-tight">
+          <p className="text-[28px] sm:text-[36px] text-[#303030] font-[700] tracking-tight">
             Media
           </p>
-          <div className="flex flex-row gap-[20px]">
+          <div className="flex flex-row gap-[10px] sm:gap-[20px]">
             <button
               onClick={() => setMediaCurrent((prev) => Math.max(prev - 1, 0))}
               disabled={mediaCurrent === 0}
-              className={`rounded-[6px] flex items-center justify-center w-[60px] h-[60px] ${mediaCurrent === 0
-                  ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
-                  : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
+              className={`rounded-[6px] flex items-center justify-center w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] ${mediaCurrent === 0
+                ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
+                : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
                 }`}
             >
-              <ArrowLeft />
+              <ArrowLeft className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
             </button>
 
             <button
               onClick={() =>
                 setMediaCurrent((prev) =>
-                  Math.min(prev + 1, mediaItems.length - 2)
+                  Math.min(prev + 1, mediaItems.length - (windowWidth < 640 ? 1 : 2))
                 )
               }
-              disabled={mediaCurrent === mediaItems.length - 2}
-              className={`rounded-[6px] flex items-center justify-center w-[60px] h-[60px] ${mediaCurrent === mediaItems.length - 2
-                  ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
-                  : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
+              disabled={mediaCurrent === mediaItems.length - (windowWidth < 640 ? 1 : 2)}
+              className={`rounded-[6px] flex items-center justify-center w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] ${mediaCurrent === mediaItems.length - (windowWidth < 640 ? 1 : 2)
+                ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
+                : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
                 }`}
             >
-              <ArrowRight />
+              <ArrowRight className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
             </button>
 
           </div>
@@ -170,14 +180,20 @@ const Home_main = () => {
         <div className="w-full overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${mediaCurrent * (620)}px)` }}
+            style={{
+              transform: windowWidth < 640
+                ? `translateX(calc(-${mediaCurrent} * (100% + 15px)))`
+                : `translateX(-${mediaCurrent * 620}px)`
+            }}
           >
             {mediaItems.map((item, idx) => (
-              <div key={idx} className="flex-shrink-0 w-[600px] mr-[20px]">
-                <div className="bg-gray-300 w-full h-[400px] rounded-[6px] flex items-center justify-center text-[24px] font-[700] text-[#303030]">
-                  {item.type === "video" ? "Video" : "Photo"}
+              <div key={idx} className={`flex-shrink-0 ${windowWidth < 640 ? 'w-full mr-[15px]' : 'w-[600px] mr-[20px]'}`}>
+                <div className="bg-gray-300 w-full h-[250px] sm:h-[400px] rounded-[6px] flex items-center justify-center text-[24px] font-[700] text-[#303030]">
+                  {item.type === "video"
+                    ? (lang === "uz" ? "Video" : lang === "en" ? "Video" : "Видео")
+                    : (lang === "uz" ? "Rasm" : lang === "en" ? "Photo" : "Фото")}
                 </div>
-                <div className="mt-3 text-[18px] text-[#303030]">
+                <div className="mt-3 text-[16px] sm:text-[18px] text-[#303030]">
                   <p className="font-[400]">{item.date}</p>
                   <p className="font-[700]">{item.title}</p>
                 </div>

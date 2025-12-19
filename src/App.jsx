@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { Routes, Route, useLocation } from "react-router";
 import Home from "./Pages/Home/home_main";
 import Media from "./Pages/Media/media_main";
 import Directions from "./Pages/Directions/directions_main";
@@ -13,45 +13,50 @@ import Footer from "./Components/Footer/footer_main";
 import { useEffect, useState } from "react";
 import Not_found from "./Components/Not_found/not_found_main";
 
-function App() { 
-  const [lang, setLang] = useState("uz");
+function App() {
+  const [lang, setLang] = useState(localStorage.getItem("lang") || "uz");
+  const location = useLocation();
+
   useEffect(() => {
-    !localStorage.getItem("lang") && localStorage.setItem("lang", "uz");
-  }, []); 
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    })
+  }, [location.pathname]);
+
   useEffect(() => {
     localStorage.setItem("lang", lang);
   }, [lang]);
   return (
-    <BrowserRouter>
-      <div>
-        <div className="sticky top-0 z-40 shadow-2xl">
-          <Poster />
-        </div>
-        <Info_section lang={lang} setLang={setLang} />
-        <div className="sticky top-0 z-50 bg-white">
-          <Navbar />
-        </div>
-        <div className="bg-gray-100">
-          {/* Body */}
-          <Routes>
-            <Route path="/" element={<Home />} /> {/* Webdev */}
-            <Route path="/media/*" element={<Media />} /> {/* Muhammad */}
-            <Route path="/directions/*" element={<Directions />} />
-            {/* Webdew */}
-            <Route path="/news/*" element={<News />} /> {/* Muhammad */}
-            <Route path="/announcements/*" element={<Announcements />} />
-            {/* Webdew */}
-            <Route path="/about/*" element={<About />} /> {/* Muhammad */}
-            <Route path="/form" element={<Form />} /> {/* Muhammad */}
-            <Route path="*" element={<Not_found />} /> {/* Muhammad */}
-          </Routes>
-        </div>
-        <div>
-          {/* Footer */}
-          <Footer /> {/* Muhammad done */}
-        </div>
+    <div>
+      <div className="sticky top-0 z-40 shadow-2xl">
+        <Poster lang={lang} />
       </div>
-    </BrowserRouter>
+      <Info_section lang={lang} setLang={setLang} />
+      <div className="sticky top-0 z-50 bg-white">
+        <Navbar lang={lang} setLang={setLang} />
+      </div>
+      <div className="md:pb-[140px] pb-[70px]">
+        {/* Body */}
+        <Routes>
+          <Route path="/" element={<Home lang={lang} />} /> {/* Yodgorbek */}
+          <Route path="/media/*" element={<Media />} /> {/* Ibrohimjon */}
+          <Route path="/directions/*" element={<Directions lang={lang} />} />
+          {/* Yodgorbek */}
+          <Route path="/news/*" element={<News />} /> {/* Ibrohimjon */}
+          <Route path="/announcements/*" element={<Announcements lang={lang} />} />
+          {/* Yodgorbek */}
+          <Route path="/about/*" element={<About />} /> {/* Ibrohimjon */}
+          <Route path="/form" element={<Form />} /> {/* Ibrohimjon */}
+          <Route path="*" element={<Not_found />} /> {/* Ibrohimjon */}
+        </Routes>
+      </div>
+      <div>
+        {/* Footer */}
+        <Footer /> {/* Ibrohimjon */}
+      </div>
+    </div>
   );
 }
 

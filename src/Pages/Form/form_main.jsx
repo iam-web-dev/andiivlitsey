@@ -1,9 +1,5 @@
-import React from 'react'
 
 const Form_main = () => {
-  return (
-    <div>Form_main</div>
-  )
+  return (<div>form_main</div>)
 }
-
 export default Form_main

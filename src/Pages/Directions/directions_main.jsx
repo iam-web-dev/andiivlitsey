@@ -1,8 +1,48 @@
-import React from 'react'
+import { Link, Routes, Route, useLocation } from 'react-router'
+import { directionsData } from './data'
+import Directs from './directs'
+import Single_dir from './single_dir'
 
-const Directions_main = () => {
+const Directions_main = ({ lang }) => {
+  const location = useLocation();
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const isRoot = pathSegments.length === 1 && pathSegments[0] === 'directions';
+
+  const currentId = !isRoot ? parseInt(pathSegments[1]) : null;
+
+  const currentDirection = currentId ? directionsData.find(d => d.id === currentId) : null;
+
   return (
-    <div>Directions_main</div>
+    <div className='md:mx-[60px] lg:mx-[110px] mx-[20px] min-h-[60vh]'>
+      <div className='sm:text-[18px] text-[14px] font-[500] flex items-center gap-[10px] mt-[30px]'>
+        <Link to={"/"} className='hover:text-[#cfa92d] duration-200'>
+          {lang === "uz" ? "Bosh sahifa" : lang === "en" ? "Home" : "Главная"}
+        </Link>
+        <span className='text-[#ccc]'>/</span>
+        {isRoot ? (
+          <span className='text-[#cfa92d]'>
+            {lang === "uz" ? "Yo'nalishlar" : lang === "en" ? "Directions" : "Направления"}
+          </span>
+        ) : (
+          <Link to="/directions" className='hover:text-[#cfa92d] duration-200'>
+            {lang === "uz" ? "Yo'nalishlar" : lang === "en" ? "Directions" : "Направления"}
+          </Link>
+        )}
+
+        {currentDirection && (
+          <>
+            <span className='text-[#ccc]'>/</span>
+            <span className='text-[#cfa92d] font-semibold'>{currentDirection.title}</span>
+          </>
+        )}
+      </div>
+      <div className='mt-[20px]'>
+        <Routes>
+          <Route path="/" element={<Directs lang={lang} />} />
+          <Route path=":id" element={<Single_dir lang={lang} />} />
+        </Routes>
+      </div>
+    </div>
   )
 }
 

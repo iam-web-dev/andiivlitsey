@@ -10,7 +10,7 @@ import image_3 from './Images/image_3.png'
 const Media_main = () => {
   return (
     <div className='w-full h-full flex justify-center bg-[#FFFFFF]'>
-      <div className='w-[1220px] h-full flex gap-[20px] pt-[40px] flex mb-[140px] flex-col '>
+      <div className='w-[1220px] h-full flex gap-[20px] pt-[40px] flex mb-[10px] flex-col '>
 
         <div className='flex flex-col gap-[15px]'>
           <h1 className='font-inter font-[400] text-[18px] text-[#000000]'>Bosh sahifa / <span className='text-[#8D8D8D]'>Media</span></h1>
