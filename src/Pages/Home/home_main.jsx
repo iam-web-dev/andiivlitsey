@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router";
 import { News } from '../../Services/news';
 import { AnnouncementsService } from '../../Services/announcements';
+import { MediaService } from '../../Services/media';
 
 import Loader_main from "../../Components/Loader/loader_main";
 
@@ -10,6 +11,8 @@ const Home_main = ({ lang }) => {
   const [mediaCurrent, setMediaCurrent] = useState(0);
   const [newsSlides, setNewsSlides] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [mediaItems, setMediaItems] = useState([]);
+  const [playingVideo, setPlayingVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -21,14 +24,16 @@ const Home_main = ({ lang }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Assuming monthNames is defined somewhere, e.g.:
+  useEffect(() => {
+    setPlayingVideo(null);
+  }, [mediaCurrent]);
+
   const monthNames = {
     uz: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'],
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    ru: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'] // Adjust as needed
+    ru: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr']
   };
 
-  // Assuming formatDate is defined
   const formatDate = (created_at) => {
     const dateObj = new Date(created_at);
     const day = dateObj.getDate();
@@ -37,18 +42,26 @@ const Home_main = ({ lang }) => {
     return `${day}-${month}, ${year}`;
   };
 
-  // Assuming getTranslated is defined
   const getTranslated = (item, field) => {
     return item[`${field}_${lang}`] || item[field] || '';
+  };
+
+  const getYouTubeId = (url) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [newsData, announcementsData] = await Promise.all([
+        const [newsData, announcementsData, videoData, photoData] = await Promise.all([
           News.getNews(1),
-          AnnouncementsService.getAnnouncements(1)
+          AnnouncementsService.getAnnouncements(1),
+          MediaService.getVideoGallery(1),
+          MediaService.getGallery(1)
         ]);
 
         if (newsData && newsData.results) {
@@ -69,26 +82,43 @@ const Home_main = ({ lang }) => {
           setAnnouncements(announcementsData.results);
         }
 
+        // Interleave videos and photos
+        const videos = videoData?.results || [];
+        const photos = photoData?.results || [];
+        const interleaved = [];
+        const maxLen = Math.max(videos.length, photos.length);
+
+        for (let i = 0; i < maxLen; i++) {
+          if (videos[i]) {
+            interleaved.push({
+              ...videos[i],
+              type: 'video',
+              displayDate: formatDate(videos[i].created_at),
+              displayTitle: getTranslated(videos[i], 'title'),
+              displayImage: videos[i].cover_image
+            });
+          }
+          if (photos[i]) {
+            interleaved.push({
+              ...photos[i],
+              type: 'photo',
+              displayDate: formatDate(photos[i].created_at),
+              displayTitle: getTranslated(photos[i], 'title'),
+              displayImage: photos[i].image
+            });
+          }
+        }
+        setMediaItems(interleaved);
+
         setLoading(false);
       } catch (err) {
         console.error(err);
-        setNewsSlides([]);
-        setAnnouncements([]);
         setLoading(false);
       }
     };
 
     fetchData();
   }, [lang]);
-
-  const mediaItems = [
-    { type: "video", date: "12-dekabr, 2025", title: lang === "uz" ? "Video lavha 1" : lang === "en" ? "Video clip 1" : "Видео ролик 1" },
-    { type: "photo", date: "13-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 2" : lang === "en" ? "Photo gallery 2" : "Фото галерея 2" },
-    { type: "video", date: "14-dekabr, 2025", title: lang === "uz" ? "Video lavha 3" : lang === "en" ? "Video clip 3" : "Видео ролик 3" },
-    { type: "photo", date: "15-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 4" : lang === "en" ? "Photo gallery 4" : "Фото галерея 4" },
-    { type: "video", date: "16-dekabr, 2025", title: lang === "uz" ? "Video lavha 5" : lang === "en" ? "Video clip 5" : "Видео ролик 5" },
-    { type: "photo", date: "17-dekabr, 2025", title: lang === "uz" ? "Rasm lavha 6" : lang === "en" ? "Photo gallery 6" : "Фото галерея 6" },
-  ];
 
   const visibleAnnouncements = announcements.slice(0, windowWidth < 640 ? 3 : 6);
 
@@ -241,23 +271,56 @@ const Home_main = ({ lang }) => {
                 key={idx}
                 className={`flex-shrink-0 ${windowWidth < 640 ? "w-full mr-[15px]" : "w-[600px] mr-[20px]"}`}
               >
-                <div className="bg-gray-300 w-full h-[250px] sm:h-[400px] rounded-[6px] flex items-center justify-center text-[24px] font-[700] text-[#303030]">
-                  {item.type === "video"
-                    ? lang === "uz"
-                      ? "Video"
-                      : lang === "en"
-                        ? "Video"
-                        : "Видео"
-                    : lang === "uz"
-                      ? "Rasm"
-                      : lang === "en"
-                        ? "Photo"
-                        : "Фото"}
-                </div>
-                <div className="mt-3 text-[16px] sm:text-[18px] text-[#303030]">
-                  <p className="font-[400]">{item.date}</p>
-                  <p className="font-[700]">{item.title}</p>
-                </div>
+                {item.type === 'photo' ? (
+                  <Link to="/media" className="block group">
+                    <div className="relative w-full h-[250px] sm:h-[400px] rounded-[6px] overflow-hidden">
+                      <img
+                        src={item.displayImage || "https://via.placeholder.com/600x400?text=No+Image"}
+                        alt={item.displayTitle}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-3 text-[16px] sm:text-[18px] text-[#303030]">
+                      <p className="font-[400] text-[#6F6F6F]">{item.displayDate}</p>
+                      <p className="font-[700] line-clamp-1">{item.displayTitle}</p>
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="group">
+                    <div
+                      className="relative w-full h-[250px] sm:h-[400px] rounded-[6px] overflow-hidden bg-black"
+                      onClick={() => playingVideo !== item.id && setPlayingVideo(item.id)}
+                    >
+                      {playingVideo === item.id ? (
+                        <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube.com/embed/${getYouTubeId(item.video_url)}?autoplay=1`}
+                          title={item.displayTitle}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      ) : (
+                        <>
+                          <img
+                            src={item.displayImage || "https://via.placeholder.com/600x400?text=No+Image"}
+                            alt={item.displayTitle}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center cursor-pointer">
+                            <div className="w-[60px] h-[60px] bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/40 group-hover:scale-110 transition-transform">
+                              <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <Link to="/media" className="block mt-3 text-[16px] sm:text-[18px] text-[#303030]">
+                      <p className="font-[400] text-[#6F6F6F]">{item.displayDate}</p>
+                      <p className="font-[700] line-clamp-1 hover:text-[#cfa92d] duration-300">{item.displayTitle}</p>
+                    </Link>
+                  </div>
+                )}
               </div>
             ))}
           </div>
