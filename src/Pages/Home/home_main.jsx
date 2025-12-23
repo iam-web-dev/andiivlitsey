@@ -9,7 +9,6 @@ const Home_main = ({ lang }) => {
   const [current, setCurrent] = useState(0);
   const [mediaCurrent, setMediaCurrent] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);

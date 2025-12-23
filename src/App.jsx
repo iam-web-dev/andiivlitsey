@@ -12,6 +12,8 @@ import Navbar from "./Components/Navbar/navbar_main";
 import Footer from "./Components/Footer/footer_main";
 import { useEffect, useState } from "react";
 import Not_found from "./Components/Not_found/not_found_main";
+import Success from "./Pages/Form/success";
+import Single_new from "./Pages/News/single_new";
 
 function App() {
   const [lang, setLang] = useState(localStorage.getItem("lang") || "uz");
@@ -41,15 +43,17 @@ function App() {
         {/* Body */}
         <Routes>
           <Route path="/" element={<Home lang={lang} />} /> {/* Yodgorbek */}
-          <Route path="/media/*" element={<Media />} /> {/* Ibrohimjon */}
+          <Route path="/media/*" element={<Media  lang={lang} />} /> {/* Ibrohimjon */}
           <Route path="/directions/*" element={<Directions lang={lang} />} />
           {/* Yodgorbek */}
-          <Route path="/news/*" element={<News />} /> {/* Ibrohimjon */}
+          <Route path="/news/*" element={<News lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/news/single" element={<Single_new lang={lang} />} /> {/* Ibrohimjon */}
           <Route path="/announcements/*" element={<Announcements lang={lang} />} />
           {/* Yodgorbek */}
-          <Route path="/about/*" element={<About />} /> {/* Ibrohimjon */}
-          <Route path="/form" element={<Form />} /> {/* Ibrohimjon */}
-          <Route path="*" element={<Not_found />} /> {/* Ibrohimjon */}
+          <Route path="/about/*" element={<About  lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/form" element={<Form  lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/success" element={<Success  lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="*" element={<Not_found  lang={lang} />} /> {/* Ibrohimjon */}
         </Routes>
       </div>
       <div>

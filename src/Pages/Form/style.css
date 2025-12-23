@@ -1,0 +1,54 @@
+/* style.css */
+
+.custom-select {
+    appearance: none;
+    /* Remove default arrow */
+    background-color: #F4F4F4;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236F6F6F%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%208.7%205.4%2013.8%205.4s10.1-1.8%2013.8-5.4L287%2082.2c3.6-3.6%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1rem top 50%;
+    background-size: 0.65rem auto;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-select:focus {
+    border-color: #FFD859;
+    box-shadow: 0 0 0 3px rgba(255, 216, 89, 0.3);
+}
+
+.custom-select option {
+    font-size: 18px;
+    /* Larger font size for options */
+    padding: 15px 20px;
+    /* More padding to make options bigger */
+    background-color: #FFFFFF;
+    color: #303030;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Animation for hover */
+}
+
+.custom-select option:hover {
+    background-color: #FFD859;
+    /* Yellow hover background */
+    color: #303030;
+    transform: scale(1.05);
+    /* Slight scale animation on hover */
+    cursor: pointer;
+}
+
+.custom-select option:checked {
+    background-color: #003366;
+    /* Dark blue for selected, like in the image */
+    color: #FFFFFF;
+}
+
+/* Additional styles for the dropdown shadow and border */
+.custom-select::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-select::-webkit-scrollbar-thumb {
+    background-color: #E0E0E0;
+    border-radius: 4px;
+}
