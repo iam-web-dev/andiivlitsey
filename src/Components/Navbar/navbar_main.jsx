@@ -23,6 +23,7 @@ const Navbar_main = ({ lang, setLang }) => {
 
   function change_lang(l) {
     if (setLang) setLang(l);
+    setMobileOpen(false);
   }
 
   const isActive = (path) => {
@@ -51,7 +52,13 @@ const Navbar_main = ({ lang, setLang }) => {
       <div className="w-full relative z-[100] bg-white xl:h-[105px] lg:h-[85px] h-[75px] flex flex-col xl:px-[110px] lg:px-[80px] md:px-[30px] px-[20px] items-center justify-between text-[#303030]">
         <div className="flex flex-row items-center h-full justify-between w-full relative z-[101] bg-white">
           <Link to={"/"} className="flex items-center gap-[10px]">
-            <img src={logo} alt="logo" className="xl:w-[60px] xl:h-[60px] lg:w-[50px] lg:h-[50px] w-[45px] h-[45px]" />
+            <img
+              src={logo}
+              alt="Andijon IIV litseyi"
+              loading="eager"
+              fetchpriority="high"
+              className="xl:w-[60px] xl:h-[60px] lg:w-[50px] lg:h-[50px] w-[45px] h-[45px]"
+            />
             <p className="xl:text-[20px] lg:text-[15px] md:text-[13px] text-[14px] font-[700] leading-[120%] whitespace-nowrap">
               {lang === "uz" ? "Ichki ishlar vazirligi Andijon" : lang === "en" ? "MIA Andijan" : "МВД Андижанский"} <br /> {lang === "uz" ? "viloyati akademik litseyi" : lang === "en" ? "regional academic lyceum" : "областной академический лицей"}
             </p>

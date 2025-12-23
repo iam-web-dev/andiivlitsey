@@ -1,5 +1,6 @@
 import { Link, Routes, Route, useLocation } from 'react-router'
-import { directionsData } from './data'
+import { useEffect, useState } from 'react'
+import { DirectionsService } from '../../services/directions'
 import Directs from './directs'
 import Single_dir from './single_dir'
 
@@ -7,10 +8,31 @@ const Directions_main = ({ lang }) => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const isRoot = pathSegments.length === 1 && pathSegments[0] === 'directions';
+  const [currentDirection, setCurrentDirection] = useState(null);
 
-  const currentId = !isRoot ? parseInt(pathSegments[1]) : null;
+  useEffect(() => {
+    if (!isRoot && pathSegments[1]) {
+      const fetchCurrent = async () => {
+        try {
+          const data = await DirectionsService.getDirectionById(pathSegments[1]);
+          if (data) {
+            setCurrentDirection(data);
+          }
+        } catch (error) {
+          console.error("Failed to fetch direction for breadcrumbs:", error);
+        }
+      };
+      fetchCurrent();
+    } else {
+      setCurrentDirection(null);
+    }
+  }, [location.pathname, isRoot]);
 
-  const currentDirection = currentId ? directionsData.find(d => d.id === currentId) : null;
+  const getTranslated = (item, field) => {
+    if (!item) return "";
+    const key = `${field}_${lang}`;
+    return item[key] || item[field] || "";
+  };
 
   return (
     <div className='md:mx-[60px] lg:mx-[110px] mx-[20px] min-h-[60vh]'>
@@ -29,10 +51,12 @@ const Directions_main = ({ lang }) => {
           </Link>
         )}
 
-        {currentDirection && (
+        {currentDirection && !isRoot && (
           <>
             <span className='text-[#ccc]'>/</span>
-            <span className='text-[#cfa92d] font-semibold'>{currentDirection.title}</span>
+            <span className='text-[#cfa92d] font-semibold line-clamp-1 max-w-[200px]'>
+              {getTranslated(currentDirection, 'title')}
+            </span>
           </>
         )}
       </div>
@@ -46,4 +70,4 @@ const Directions_main = ({ lang }) => {
   )
 }
 
-export default Directions_main
+export default Directions_main;

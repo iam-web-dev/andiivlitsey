@@ -178,4 +178,4 @@ const News_main = (lang) => {
   )
 }
 
-export default News_main
+export default News_main;
