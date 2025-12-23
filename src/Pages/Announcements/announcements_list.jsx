@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { AnnouncementsService } from '../../services/announcements';
+import { AnnouncementsService } from '../../Services/announcements';
 import { Eye } from 'lucide-react';
 import { Pagination } from '@mui/material';
+
+import Loader_main from '../../Components/Loader/loader_main';
 
 const Announcements_list = ({ lang }) => {
     const [announcements, setAnnouncements] = useState([]);
@@ -45,11 +47,7 @@ const Announcements_list = ({ lang }) => {
     };
 
     if (loading) {
-        return (
-            <div className="h-[400px] flex items-center justify-center">
-                <div className="loader"></div>
-            </div>
-        );
+        return <Loader_main className="h-[400px]" />;
     }
 
     const totalPages = Math.ceil(totalCount / 10); // Standard Django REST pagination is often 10, but I'll use 10 for now based on common API behavior unless I see otherwise.

@@ -3,6 +3,8 @@ import eye from './Images/eye.svg'
 import left from './Images/left.svg'
 import right from './Images/right.svg'
 
+import Loader_main from '../../../../Components/Loader/loader_main'
+
 const History_main = ({ lang }) => {
 
   const [data, setData] = useState(null);
@@ -15,7 +17,7 @@ const History_main = ({ lang }) => {
   }, []);
 
   if (!data) {
-    return <div className='w-full h-full flex justify-center items-center bg-[#FFFFFF]'>Loading...</div>;
+    return <Loader_main className="h-[400px]" />;
   }
 
   const translations = {
@@ -51,7 +53,7 @@ const History_main = ({ lang }) => {
 
   const description = (
     <p className='mt-[5px] sm:w-[807px] sm:h-[390px] font-inter font-[400] text-[16px] sm:text-[18px] leading-[140%] text-[#303030]'
-       dangerouslySetInnerHTML={{ __html: contentText.replace(/\r?\n/g, '<br /><br />') }}>
+      dangerouslySetInnerHTML={{ __html: contentText.replace(/\r?\n/g, '<br /><br />') }}>
     </p>
   );
 

@@ -3,6 +3,8 @@ import play from './Images/play.svg'
 import right from './Images/right.svg'
 import left from './Images/left.svg'
 
+import Loader_main from '../../Components/Loader/loader_main'
+
 const Media_main = ({ lang }) => {
   const [photos, setPhotos] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -98,7 +100,7 @@ const Media_main = ({ lang }) => {
   };
 
   if (photos.length === 0 || videos.length === 0) {
-    return <div className='w-full h-full flex justify-center items-center bg-[#FFFFFF]'>Loading...</div>;
+    return <Loader_main className="h-[500px]" />;
   }
 
   return (

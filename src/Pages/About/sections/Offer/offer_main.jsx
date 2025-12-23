@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import Loader_main from '../../../../Components/Loader/loader_main'
+
 const Offer_main = ({ lang }) => {
   const [data, setData] = useState(null);
 
@@ -17,7 +19,7 @@ const Offer_main = ({ lang }) => {
   }, []);
 
   if (!data) {
-    return <div className='w-full h-full flex justify-center items-center bg-[#FFFFFF]'>Loading...</div>;
+    return <Loader_main className="h-[400px]" />;
   }
 
   const translations = {
@@ -52,7 +54,7 @@ const Offer_main = ({ lang }) => {
 
   const description = (
     <p className='font-inter font-[400] text-[16px] sm:text-[18px] leading-[140%] text-[#303030]'
-       dangerouslySetInnerHTML={{ __html: contentText.replace(/\r?\n/g, '<br />') }}>
+      dangerouslySetInnerHTML={{ __html: contentText.replace(/\r?\n/g, '<br />') }}>
     </p>
   );
 

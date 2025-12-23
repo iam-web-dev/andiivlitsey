@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { DirectionsService } from '../../services/directions';
+import { DirectionsService } from '../../Services/directions';
+
+import Loader_main from '../../Components/Loader/loader_main';
 
 const Single_dir = ({ lang }) => {
   const { id } = useParams();
@@ -32,11 +34,7 @@ const Single_dir = ({ lang }) => {
   };
 
   if (loading) {
-    return (
-      <div className="h-[400px] flex items-center justify-center">
-        <div className="loader"></div>
-      </div>
-    );
+    return <Loader_main className="h-[400px]" />;
   }
 
   if (!direction) {

@@ -1,6 +1,6 @@
 import { Link, Routes, Route, useLocation } from 'react-router'
 import { useEffect, useState } from 'react'
-import { DirectionsService } from '../../services/directions'
+import { DirectionsService } from '../../Services/directions'
 import Directs from './directs'
 import Single_dir from './single_dir'
 

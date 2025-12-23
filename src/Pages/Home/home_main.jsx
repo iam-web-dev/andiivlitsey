@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router";
-import { News } from '../../services/news';
-import { AnnouncementsService } from '../../services/announcements';
+import { News } from '../../Services/news';
+import { AnnouncementsService } from '../../Services/announcements';
+
+import Loader_main from "../../Components/Loader/loader_main";
 
 const Home_main = ({ lang }) => {
   const [mediaCurrent, setMediaCurrent] = useState(0);
@@ -103,11 +105,7 @@ const Home_main = ({ lang }) => {
   const handlePosterDot = (idx) => setCurrent(idx);
 
   if (loading) {
-    return (
-      <div className="w-full h-[550px] flex items-center justify-center bg-[#f4f4f4]">
-        <div className="loader"></div>
-      </div>
-    );
+    return <Loader_main className="h-[550px]" />;
   }
 
   return (

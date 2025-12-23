@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import person from './Images/person.svg'
 
+import Loader_main from '../../../../Components/Loader/loader_main'
+
 const Team_main = ({ lang }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,7 @@ const Team_main = ({ lang }) => {
   }, []);
 
   if (loading) {
-    return <div className='w-full h-full flex justify-center items-center bg-[#FFFFFF]'>Loading...</div>;
+    return <Loader_main className="h-[400px]" />;
   }
 
   const translations = {

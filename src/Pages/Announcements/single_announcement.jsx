@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
-import { AnnouncementsService } from '../../services/announcements';
+import { AnnouncementsService } from '../../Services/announcements';
 import { Eye } from 'lucide-react';
+
+import Loader_main from '../../Components/Loader/loader_main';
 
 const Single_announcement = ({ lang }) => {
     const { id } = useParams();
@@ -46,11 +48,7 @@ const Single_announcement = ({ lang }) => {
     };
 
     if (loading) {
-        return (
-            <div className="h-[400px] flex items-center justify-center">
-                <div className="loader"></div>
-            </div>
-        );
+        return <Loader_main className="h-[400px]" />;
     }
 
     if (!announcement) {
