@@ -116,27 +116,27 @@ const Media_main = ({ lang }) => {
 
         <div>
           <div className='relative'>
-            <button onClick={handlePrevPhoto} className='hidden sm:block absolute mt-[230px] ml-[-30px] shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFFFFF] cursor-pointer hover:bg-gray-200 duration-300 flex flex-col justify-center items-center'>
+            <button onClick={handlePrevPhoto} className='hidden sm:block absolute top-1/2 left-[-30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFFFFF] cursor-pointer hover:bg-gray-200 duration-300 flex flex-col justify-center items-center'>
               <img src={left} alt="left" />
             </button>
-            <div>
-              <img src={photos[currentPhoto].image} className='w-full sm:w-[1220px] h-[400px] object-cover sm:h-[520px] rounded-[8px] ' alt="main" />
-              <div className='mt-[-66px] sm:mt-[-94px] mb-[48px] ml-[20px] sm:ml-[40px] flex flex-col gap-[10px]'>
+            <div className="transition-all duration-500 ease-in-out">
+              <img src={photos[currentPhoto].image} className='w-full sm:w-[1220px] h-[224px] sm:h-[520px] rounded-[8px] object-cover' alt="main" />
+              <div className='absolute bottom-0 left-[20px] sm:left-[40px] pb-[20px] flex flex-col gap-[10px]'>
                 <h1 className='font-inter font-[400] text-[14px] sm:text-[18px] leading-[100%] text-[#FFFFFF]'>{formatPhotoDate(photos[currentPhoto].created_at)}</h1>
                 <h1 className='font-inter font-[700] text-[16px] sm:text-[18px] leading-[100%] text-[#FFFFFF]'>{photos[currentPhoto][`title_${lang}`] || photos[currentPhoto].title_uz}</h1>
               </div>
             </div>
-            <button onClick={handleNextPhoto} className='hidden sm:block absolute ml-[1190px] mt-[-289px] shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 '>
+            <button onClick={handleNextPhoto} className='hidden sm:block absolute top-1/2 right-[-30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
               <img src={right} alt="right" />
             </button>
           </div>
 
-          <div className='flex w-full overflow-x-auto gap-[20px] mt-[20px] sm:mt-[70px]'>
+          <div className='flex w-full overflow-x-auto gap-[10px] sm:gap-[20px] mt-[20px] sm:mt-[70px]'>
             {photos.map((photo, idx) => (
               <img
                 key={idx}
                 src={photo.image}
-                className={`cursor-pointer object-cover w-[39.17px] sm:w-[135px] h-[34px] sm:h-[80px] rounded-[6px] border-[2px] border-[#FFD859] ${idx === currentPhoto ? 'opacity-100' : 'opacity-[60%]'}`}
+                className={`cursor-pointer object-cover w-[60px] sm:w-[135px] h-[40px] sm:h-[80px] rounded-[6px] border-[2px] ${idx === currentPhoto ? 'border-[#FFD859] scale-110 opacity-100' : 'border-transparent opacity-[60%]'} transition-all duration-300`}
                 onClick={() => setCurrentPhoto(idx)}
                 alt={`thumbnail ${idx}`}
               />
@@ -145,22 +145,22 @@ const Media_main = ({ lang }) => {
         </div>
 
         <div className='mt-[85px] sm:mt-[96px] '>
-          <div className='flex justify-between'>
+          <div className='flex justify-between items-center'>
             <h1 className='font-inter font-[700] text-[28px] sm:text-[36px] text-[#303030]'>{t.videoGallery}</h1>
             <div className='flex gap-[10px] sm:gap-[20px]'>
               <button
                 onClick={handlePrevVideo}
                 disabled={currentVideo === 0}
-                className={`shadow-lg w-[44px] h-[44px] sm:w-[60px] sm:h-[60px] rounded-[6px] opacity-[80%] ${currentVideo === 0 ? 'bg-[#E0E0E0]' : 'bg-[#FFD859] hover:bg-[#f5be0b]'} cursor-pointer duration-300 flex flex-col justify-center items-center`}
+                className={`shadow-lg w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] rounded-[6px] opacity-[80%] ${currentVideo === 0 ? 'bg-[#E0E0E0]' : 'bg-[#FFD859] hover:bg-[#f5be0b]'} cursor-pointer duration-300 flex justify-center items-center`}
               >
-                <img src={left} alt="left" />
+                <img src={left} alt="left" className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
               </button>
               <button
                 onClick={handleNextVideo}
                 disabled={currentVideo === videos.length - (windowWidth < 640 ? 1 : 2)}
-                className={`shadow-lg w-[44px] h-[44px] sm:w-[60px] sm:h-[60px] rounded-[6px] opacity-[80%] ${currentVideo === videos.length - (windowWidth < 640 ? 1 : 2) ? 'bg-[#E0E0E0]' : 'bg-[#FFD859] hover:bg-[#f5be0b]'} cursor-pointer duration-300 flex flex-col justify-center items-center`}
+                className={`shadow-lg w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] rounded-[6px] opacity-[80%] ${currentVideo === videos.length - (windowWidth < 640 ? 1 : 2) ? 'bg-[#E0E0E0]' : 'bg-[#FFD859] hover:bg-[#f5be0b]'} cursor-pointer duration-300 flex justify-center items-center`}
               >
-                <img src={right} alt="right" />
+                <img src={right} alt="right" className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
               </button>
             </div>
           </div>
@@ -183,8 +183,7 @@ const Media_main = ({ lang }) => {
                       <div className="relative mt-[30px] w-full sm:w-[570px]">
                         {isPlaying ? (
                           <iframe
-                            width="100%"
-                            height="224px sm:360px"
+                            className="w-full h-[224px] sm:h-[360px]"
                             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
                             title="YouTube video player"
                             frameBorder="0"
@@ -193,7 +192,7 @@ const Media_main = ({ lang }) => {
                           ></iframe>
                         ) : (
                           <>
-                            <img src={video.cover_image} className="w-full sm:w-[570px] h-[224px] sm:h-[360px] rounded-[6px] object-cover" alt="video cover" />
+                            <img src={video.cover_image} className="w-full h-[224px] sm:h-[360px] rounded-[6px] object-cover" alt="video cover" />
                             <img src={play} className="absolute inset-0 m-auto cursor-pointer" onClick={() => handlePlayVideo(video.id)} alt="play" />
                           </>
                         )}
@@ -212,7 +211,7 @@ const Media_main = ({ lang }) => {
               {videos.map((_, idx) => (
                 <div
                   key={idx}
-                  className={`w-[10px] h-[10px] rounded-[50%] cursor-pointer ${idx === currentVideo ? 'bg-[#FFD859]' : 'bg-[#D9D9D9]'}`}
+                  className={`w-[10px] h-[10px] rounded-[50%] cursor-pointer transition-all duration-300 ${idx === currentVideo ? 'bg-[#FFD859] scale-125' : 'bg-[#D9D9D9]'}`}
                   onClick={() => setCurrentVideo(idx)}
                 ></div>
               ))}

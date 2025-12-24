@@ -46,8 +46,8 @@ function App() {
           <Route path="/media/*" element={<Media  lang={lang} />} /> {/* Ibrohimjon */}
           <Route path="/directions/*" element={<Directions lang={lang} />} />
           {/* Yodgorbek */}
-          <Route path="/news/*" element={<News lang={lang} />} /> {/* Ibrohimjon */}
-          <Route path="/news/single" element={<Single_new lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/news" element={<News lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/news/:id" element={<Single_new lang={lang} />} /> {/* Ibrohimjon */}
           <Route path="/announcements/*" element={<Announcements lang={lang} />} />
           {/* Yodgorbek */}
           <Route path="/about/*" element={<About  lang={lang} />} /> {/* Ibrohimjon */}
