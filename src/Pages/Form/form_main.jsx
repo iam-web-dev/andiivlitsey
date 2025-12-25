@@ -246,7 +246,6 @@ const Form_main = ({ lang }) => {
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            {/* Direction Select */}
             <div className='flex flex-col'>
               <label htmlFor='direction' className='text-[#6F6F6F] font-[400] mb-2'>
                 {t.direction[lang] || t.direction.uz}
@@ -264,7 +263,6 @@ const Form_main = ({ lang }) => {
               {errors.direction && <p className='text-red-500 text-xs mt-1'>{errors.direction}</p>}
             </div>
 
-            {/* Language Select */}
             <div className='flex flex-col'>
               <label htmlFor='language' className='text-[#6F6F6F] font-[400] mb-2'>
                 {t.language[lang] || t.language.uz}
@@ -301,7 +299,7 @@ const Form_main = ({ lang }) => {
             <button
               type='submit'
               disabled={loading}
-              className={`w-full h-[52px] ${loading ? 'bg-gray-400' : 'bg-[#FFD859] hover:bg-[#ffcf33]'} font-[600] rounded-md text-[#303030] text-[16px] transition duration-300 flex items-center justify-center gap-2`}
+              className={`w-full cursor-pointer h-[52px] ${loading ? 'bg-gray-400' : 'bg-[#FFD859] hover:bg-[#ffcf33]'} font-[600] rounded-md text-[#303030] text-[16px] transition duration-300 flex items-center justify-center gap-2`}
             >
               {loading ? (
                 <>

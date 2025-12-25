@@ -4,6 +4,7 @@ import right from './Images/right.svg'
 import left from './Images/left.svg'
 
 import Loader_main from '../../Components/Loader/loader_main'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 const Media_main = ({ lang }) => {
   const [photos, setPhotos] = useState([]);
@@ -15,12 +16,12 @@ const Media_main = ({ lang }) => {
   const videoContainerRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/gallery/?page=1')
+    fetch('https://ctrl.iivandijonlitsey.uz/api/gallery/?page=1')
       .then(response => response.json())
       .then(json => setPhotos(json.results))
       .catch(error => console.error('Error fetching photos:', error));
 
-    fetch('http://ctrl.iivandijonlitsey.uz/api/video-gallery/?page=1')
+    fetch('https://ctrl.iivandijonlitsey.uz/api/video-gallery/?page=1')
       .then(response => response.json())
       .then(json => setVideos(json.results))
       .catch(error => console.error('Error fetching videos:', error));
@@ -106,7 +107,7 @@ const Media_main = ({ lang }) => {
   }
 
   return (
-    <div className='w-full h-full flex justify-center bg-[#FFFFFF]'>
+    <div className='w-full min-h-screen flex justify-center bg-white animate-fade-in'>
       <div className='w-full px-[20px] sm:px-[0px] overflow-hidden sm:w-[1220px] h-full flex gap-[20px] pt-[40px] flex mb-[10px] flex-col '>
 
         <div className='flex flex-col gap-[30px] sm:gap-[15px]'>
@@ -116,8 +117,8 @@ const Media_main = ({ lang }) => {
 
         <div>
           <div className='relative'>
-            <button onClick={handlePrevPhoto} className='hidden sm:block absolute top-1/2 left-[-30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFFFFF] cursor-pointer hover:bg-gray-200 duration-300 flex flex-col justify-center items-center'>
-              <img src={left} alt="left" />
+            <button onClick={handlePrevPhoto} className='hidden sm:block absolute top-1/2 left-[30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
+              <ArrowLeft className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
             </button>
             <div className="transition-all duration-500 ease-in-out">
               <img src={photos[currentPhoto].image} className='w-full sm:w-[1220px] h-[224px] sm:h-[520px] rounded-[8px] object-cover' alt="main" />
@@ -127,16 +128,16 @@ const Media_main = ({ lang }) => {
               </div>
             </div>
             <button onClick={handleNextPhoto} className='hidden sm:block absolute top-1/2 right-[-30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
-              <img src={right} alt="right" />
+              <ArrowRight className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
             </button>
           </div>
 
-          <div className='flex w-full overflow-x-auto gap-[10px] sm:gap-[20px] mt-[20px] sm:mt-[70px]'>
+          <div className='flex w-full py-2 px-2 flex items-center overflow-x-auto overflow-y-hidden gap-[10px] sm:gap-[20px] mt-[20px] sm:mt-[70px]'>
             {photos.map((photo, idx) => (
               <img
                 key={idx}
                 src={photo.image}
-                className={`cursor-pointer object-cover w-[60px] sm:w-[135px] h-[40px] sm:h-[80px] rounded-[6px] border-[2px] ${idx === currentPhoto ? 'border-[#FFD859] scale-110 opacity-100' : 'border-transparent opacity-[60%]'} transition-all duration-300`}
+                className={`thumbnail-hover cursor-pointer object-cover w-[100px] sm:w-[135px] h-[60px] sm:h-[80px] rounded-[6px] border-[2px] ${idx === currentPhoto ? 'border-[#FFD859] scale-110 opacity-100' : 'border-transparent opacity-[75%]'} transition-all duration-300`}
                 onClick={() => setCurrentPhoto(idx)}
                 alt={`thumbnail ${idx}`}
               />
@@ -153,14 +154,14 @@ const Media_main = ({ lang }) => {
                 disabled={currentVideo === 0}
                 className={`shadow-lg w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] rounded-[6px] opacity-[80%] ${currentVideo === 0 ? 'bg-[#E0E0E0]' : 'bg-[#FFD859] hover:bg-[#f5be0b]'} cursor-pointer duration-300 flex justify-center items-center`}
               >
-                <img src={left} alt="left" className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
+                <ArrowLeft className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
               </button>
               <button
                 onClick={handleNextVideo}
                 disabled={currentVideo === videos.length - (windowWidth < 640 ? 1 : 2)}
                 className={`shadow-lg w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] rounded-[6px] opacity-[80%] ${currentVideo === videos.length - (windowWidth < 640 ? 1 : 2) ? 'bg-[#E0E0E0]' : 'bg-[#FFD859] hover:bg-[#f5be0b]'} cursor-pointer duration-300 flex justify-center items-center`}
               >
-                <img src={right} alt="right" className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
+                <ArrowRight className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
               </button>
             </div>
           </div>
@@ -208,7 +209,7 @@ const Media_main = ({ lang }) => {
             </div>
 
             <div className='w-full flex justify-center gap-[8px] mt-[40px]'>
-              {videos.map((_, idx) => (
+              {Array.from({ length: videos.length - 1 }).map((_, idx) => (
                 <div
                   key={idx}
                   className={`w-[10px] h-[10px] rounded-[50%] cursor-pointer transition-all duration-300 ${idx === currentVideo ? 'bg-[#FFD859] scale-125' : 'bg-[#D9D9D9]'}`}

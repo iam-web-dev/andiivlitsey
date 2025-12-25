@@ -6,7 +6,7 @@ const Offer_main = ({ lang }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/about/?page=0', {
+    fetch('https://ctrl.iivandijonlitsey.uz/api/about/?page=0', {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -59,7 +59,7 @@ const Offer_main = ({ lang }) => {
   );
 
   return (
-    <div className='w-full h-full flex justify-center bg-[#FFFFFF]'>
+    <div className='w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in'>
       <div className='w-full sm:w-[1220px] sm:h-[706px] h-full flex flex-col gap-[10px] pt-[40px] px-[20px]'>
         <div className='flex flex-col gap-[40px] sm:gap-[15px]'>
           {breadcrumb}

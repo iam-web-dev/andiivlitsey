@@ -53,7 +53,7 @@ const Announcements_list = ({ lang }) => {
     const totalPages = Math.ceil(totalCount / 10); // Standard Django REST pagination is often 10, but I'll use 10 for now based on common API behavior unless I see otherwise.
 
     return (
-        <div>
+        <div className="animate-fade-in">
             {/* Title */}
             <div className="flex flex-row items-center justify-between mb-[30px]">
                 <p className="md:text-[36px] sm:text-[31px] text-[28px] text-[#303030] font-[700] tracking-tight">
@@ -75,8 +75,8 @@ const Announcements_list = ({ lang }) => {
                         <p className="text-[20px] sm:text-[24px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%] line-clamp-2">
                             {getTranslated(item, 'title')}
                         </p>
-                        <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%] line-clamp-3">
-                            {getTranslated(item, 'short_description') || getTranslated(item, 'description')}
+                        <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%] line-clamp-1">
+                            {getTranslated(item, 'content')}
                         </p>
                     </Link>
                 ))}

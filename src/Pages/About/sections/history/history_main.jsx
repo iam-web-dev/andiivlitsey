@@ -10,7 +10,7 @@ const History_main = ({ lang }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/about/1')
+    fetch('https://ctrl.iivandijonlitsey.uz/api/about/1')
       .then(response => response.json())
       .then(setData)
       .catch(error => console.error('Error fetching data:', error));
@@ -58,7 +58,7 @@ const History_main = ({ lang }) => {
   );
 
   return (
-    <div className='w-full h-full flex justify-center sm:px-[0px] px-[20px] bg-[#FFFFFF]'>
+    <div className='w-full h-full flex justify-center sm:px-[0px] px-[20px] bg-[#FFFFFF] animate-fade-in'>
       <div className='w-full sm:w-[1220px] sm:h-[731px] flex sm:flex-row flex-col gap-[20px] pt-[40px] '>
         <div className='flex flex-col gap-[15px]'>
           {breadcrumb}
@@ -66,7 +66,7 @@ const History_main = ({ lang }) => {
           <img src={imageUrl} className='block sm:hidden mt-[0px] w-[335px] h-[224px] object-cover sm:w-[393px] sm:h-[500px]' alt="About" />
           {description}
         </div>
-        <img src={imageUrl} className='hidden sm:block mt-[61px] w-[335px] h-[224px] object-cover sm:w-[393px] sm:h-[500px]' alt="About" />
+        <img src={imageUrl} className='hidden rounded-xl sm:block mt-[61px] w-[335px] h-[224px] object-cover sm:w-[393px] sm:h-[500px]' alt="About" />
       </div>
     </div>
   )

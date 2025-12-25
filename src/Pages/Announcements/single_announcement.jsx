@@ -56,7 +56,7 @@ const Single_announcement = ({ lang }) => {
     }
 
     return (
-        <div>
+        <div className="animate-fade-in">
             <div className="flex flex-col lg:flex-row gap-[40px] mt-[30px]">
                 {/* Main Content (Left) */}
                 <div className="w-full lg:w-2/3">
@@ -64,7 +64,7 @@ const Single_announcement = ({ lang }) => {
                         {getTranslated(announcement, 'title')}
                     </h1>
                     <div className="text-[18px] text-[#303030] font-[400] leading-[150%] mb-[30px] whitespace-pre-wrap">
-                        {getTranslated(announcement, 'description')}
+                        {getTranslated(announcement, 'content')}
                     </div>
 
                     {/* Small parameters light color */}

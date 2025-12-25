@@ -8,7 +8,7 @@ const Team_main = ({ lang }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/leadership/?page=1', {
+    fetch('https://ctrl.iivandijonlitsey.uz/api/leadership/?page=1', {
       method: 'GET',
       headers: {
         'accept': 'application/json',
@@ -57,7 +57,7 @@ const Team_main = ({ lang }) => {
   const t = translations[lang] || translations.uz;
 
   return (
-    <div className='w-full h-full flex justify-center bg-[#FFFFFF]'>
+    <div className='w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in'>
       <div className='w-full sm:w-[1220px] sm:h-[706px] h-full flex flex-col gap-[20px] pt-[40px] px-[20px]'>
         <div className='flex flex-col gap-[15px]'>
           <h1 className='font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150'>

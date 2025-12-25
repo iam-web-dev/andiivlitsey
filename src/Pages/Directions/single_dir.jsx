@@ -46,7 +46,7 @@ const Single_dir = ({ lang }) => {
   }
 
   return (
-    <div>
+    <div className='animate-fade-in'>
       <div className="flex flex-row items-center justify-between mb-[30px]">
         <p className="md:text-[36px] sm:text-[31px] text-[28px] text-[#303030] font-[700] tracking-tight">
           {getTranslated(direction, 'title')}
@@ -64,10 +64,8 @@ const Single_dir = ({ lang }) => {
           </div>
         </div>
 
-        {/* O'ng taraf - Qo'shimcha ma'lumotlar */}
         <div className='w-full lg:w-1/2 flex flex-col gap-[30px]'>
-          {/* Qabul va til */}
-          <div className='rounded-[6px] bg-[#FFF6D8] w-full flex lg:p-[25px] md:p-[30px] p-[20px] flex-col sm:flex-row lg:items-center justify-center md:gap-[20px] gap-[10px]'>
+          <div className='rounded-[6px] bg-[#FFF6D8] w-full flex lg:p-[25px] md:p-[30px] p-[20px] flex-col sm:flex-row sm:items-center justify-center md:gap-[20px] gap-[10px]'>
             <div className='flex flex-col gap-[5px] md:gap-[10px] items-start text-center sm:text-left'>
               <p className='md:text-[18px] sm:text-[16px] text-[14px] font-[500] text-[#303030]'>
                 {lang === "uz" ? "O'quvchilar soni (qabul)" : lang === "en" ? "Number of students (admission)" : "Количество студентов (прием)"}
@@ -76,7 +74,7 @@ const Single_dir = ({ lang }) => {
                 {direction.quota || 0}
               </p>
             </div>
-            <hr className='w-full lg:w-[64px] h-[1px] sm:w-[1px] sm:h-[64px] bg-[#303030]/30 border-none' />
+            <hr className='w-[64px] h-[1px] sm:rotate-90 bg-[#303030]/30 border-none' />
             <div className='flex flex-col gap-[5px] md:gap-[10px] items-start text-center sm:text-left'>
               <p className='md:text-[18px] sm:text-[16px] text-[14px] font-[500] text-[#303030]'>
                 {lang === "uz" ? "O'qitish tili" : lang === "en" ? "Language of instruction" : "Язык обучения"}
