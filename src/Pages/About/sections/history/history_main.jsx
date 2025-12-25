@@ -66,7 +66,7 @@ const History_main = ({ lang }) => {
           <img src={imageUrl} className='block sm:hidden mt-[0px] w-[335px] h-[224px] object-cover sm:w-[393px] sm:h-[500px]' alt="About" />
           {description}
         </div>
-        <img src={imageUrl} className='hidden sm:block mt-[61px] w-[335px] h-[224px] object-cover sm:w-[393px] sm:h-[500px]' alt="About" />
+        <img src={imageUrl} className='hidden rounded-xl sm:block mt-[61px] w-[335px] h-[224px] object-cover sm:w-[393px] sm:h-[500px]' alt="About" />
       </div>
     </div>
   )
