@@ -116,10 +116,12 @@ const Media_main = ({ lang }) => {
         </div>
 
         <div>
-          <div className='relative'>
-            <button onClick={handlePrevPhoto} className='hidden sm:block absolute top-1/2 left-[30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
-              <ArrowLeft className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
-            </button>
+          <div className=''>
+            <div className='hidden sm:block absolute mt-[224px] ml-[-30px]'>
+              <button onClick={handlePrevPhoto} className=' shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
+                <ArrowLeft className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
+              </button>
+            </div>
             <div className="transition-all duration-500 ease-in-out">
               <img src={photos[currentPhoto].image} className='w-full sm:w-[1220px] h-[224px] sm:h-[520px] rounded-[8px] object-cover' alt="main" />
               <div className='absolute bottom-0 left-[20px] sm:left-[40px] pb-[20px] flex flex-col gap-[10px]'>
@@ -127,9 +129,11 @@ const Media_main = ({ lang }) => {
                 <h1 className='font-inter font-[700] text-[16px] sm:text-[18px] leading-[100%] text-[#FFFFFF]'>{photos[currentPhoto][`title_${lang}`] || photos[currentPhoto].title_uz}</h1>
               </div>
             </div>
-            <button onClick={handleNextPhoto} className='hidden sm:block absolute top-1/2 right-[-30px] transform -translate-y-1/2 shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
-              <ArrowRight className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
-            </button>
+            <div className='hidden sm:block absolute mt-[-296px] ml-[1190px]'>
+              <button onClick={handleNextPhoto} className=' shadow-lg shadow-gray-600 w-[60px] h-[60px] rounded-[6px] opacity-[80%] bg-[#FFD859] cursor-pointer hover:bg-[#f5be0b] duration-300 flex flex-col justify-center items-center'>
+                <ArrowRight className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
+              </button>
+            </div>
           </div>
 
           <div className='flex w-full py-2 px-2 flex items-center overflow-x-auto overflow-y-hidden gap-[10px] sm:gap-[20px] mt-[20px] sm:mt-[70px]'>

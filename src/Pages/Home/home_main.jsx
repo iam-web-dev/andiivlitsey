@@ -171,7 +171,7 @@ const Home_main = ({ lang }) => {
                 <div className="absolute bg-[#303030] opacity-60 w-full h-full z-10" />
                 <div className="absolute w-full xl:pl-[110px] lg:pl-[80px] sm:pl-[60px] pl-[20px] xl:pb-[120px] lg:pb-[80px] sm:pb-[60px] pb-[40px] flex flex-col text-white justify-end gap-[10px] h-full z-20">
                   <div className="animate-slide-left flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
-                    <div>{lang === "uz" ? "Banner" : lang === "en" ? "Banner" : "Баннер"}</div>
+                    <div>{lang === "uz" ? "News" : lang === "en" ? "Yangiliklar" : "Новости"}</div>
                     <hr className="w-[22px] rotate-90" />
                     <div>{formatDate(slide.created_at)}</div>
                     <hr className="w-[22px] rotate-90" />

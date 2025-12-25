@@ -68,7 +68,7 @@ const Team_main = ({ lang }) => {
 
         <div className='w-full flex flex-col sm:flex-wrap h-full gap-[20px] sm:gap-x-[30px] sm:gap-y-[25px]'>
           {data.map((item) => (
-            <div key={item.id} className='flex w-full sm:w-[600px] h-[158px] sm:h-[245px] gap-[20px]'>
+            <div key={item.id} className='flex w-full sm:w-[650px] h-[158px] sm:h-auto gap-[20px]'>
               <img src={item.image || person} className='w-[104px] sm:w-[184px] h-[144px] sm:h-[245px] object-cover rounded-[6px]' alt={item.full_name} />
 
               <div className='flex flex-col gap-[20px] sm:gap-[40px]'>
