@@ -58,7 +58,7 @@ const History_main = ({ lang }) => {
   );
 
   return (
-    <div className='w-full h-full flex justify-center sm:px-[0px] px-[20px] bg-[#FFFFFF]'>
+    <div className='w-full h-full flex justify-center sm:px-[0px] px-[20px] bg-[#FFFFFF] animate-fade-in'>
       <div className='w-full sm:w-[1220px] sm:h-[731px] flex sm:flex-row flex-col gap-[20px] pt-[40px] '>
         <div className='flex flex-col gap-[15px]'>
           {breadcrumb}

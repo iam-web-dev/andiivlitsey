@@ -34,7 +34,7 @@ const Directs = ({ lang }) => {
     }
 
     return (
-        <div>
+        <div className="animate-fade-in">
             <div className="flex flex-row items-center justify-between mb-[30px]">
                 <p className="md:text-[36px] sm:text-[31px] text-[28px] text-[#303030] font-[700] tracking-tight">
                     {lang === "uz" ? "Yo'nalishlar" : lang === "en" ? "Directions" : "Направления"}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router'
 import picture from './Images/picture.svg'
 import eye from './Images/eye.svg'
+import Loader_main from '../../Components/Loader/loader_main'
 
 const Single_new = ({ lang }) => {
     const { id } = useParams();
@@ -76,11 +77,11 @@ const Single_new = ({ lang }) => {
     };
 
     if (loading || !singleNews) {
-        return <div className='w-full h-full flex justify-center items-center bg-[#FFFFFF]'>Loading...</div>;
+        return <Loader_main className="h-[500px]" />;
     }
 
     return (
-        <div className='w-full h-full flex justify-center bg-[#FFFFFF]'>
+        <div className='w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in'>
             <div className='w-full sm:w-[1220px] h-full overflow-hidden flex flex-col sm:flex-row gap-[20px] pt-[40px] sm:px-[0px] px-[20px]'>
                 <div className='flex flex-col w-full sm:w-[807px] h-full'>
                     <div className='flex flex-col gap-[15px]'>

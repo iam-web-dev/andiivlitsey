@@ -6,6 +6,7 @@ import eye_white from './Images/eye_white.svg'
 import left from './Images/left.svg'
 import right from './Images/right.svg'
 import picture from './Images/picture.svg'
+import Loader_main from '../../Components/Loader/loader_main'
 
 const News_main = ({ lang }) => {
 
@@ -68,7 +69,7 @@ const News_main = ({ lang }) => {
   };
 
   if (loading) {
-    return <div className='w-full h-full flex justify-center items-center bg-[#FFFFFF]'>Loading...</div>;
+    return <Loader_main className="h-[500px]" />;
   }
 
   // Assuming first news is main, then slice for lists
@@ -76,7 +77,7 @@ const News_main = ({ lang }) => {
   const listNews = news.slice(1);
 
   return (
-    <div className='w-full h-full flex justify-center bg-[#FFFFFF]'>
+    <div className='w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in'>
       <div className='w-full sm:w-[1220px] overflow-hidden flex flex-col gap-[20px] pt-[40px] sm:px-[0px] px-[20px]'>
 
         <div className='flex flex-col gap-[15px]'>

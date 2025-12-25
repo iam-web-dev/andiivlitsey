@@ -18,6 +18,27 @@ const Home_main = ({ lang }) => {
   const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => observer.observe(el));
+
+    return () => revealElements.forEach(el => observer.unobserve(el));
+  }, [loading]);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -136,10 +157,10 @@ const Home_main = ({ lang }) => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center animate-fade-in">
       {/* Banner slider */}
       {banners.length > 0 && (
-        <>
+        <div className="w-full">
           <div className="relative w-full h-[550px] overflow-hidden">
             {banners.map((slide, idx) => (
               <div
@@ -149,7 +170,7 @@ const Home_main = ({ lang }) => {
               >
                 <div className="absolute bg-[#303030] opacity-60 w-full h-full z-10" />
                 <div className="absolute w-full xl:pl-[110px] lg:pl-[80px] sm:pl-[60px] pl-[20px] xl:pb-[120px] lg:pb-[80px] sm:pb-[60px] pb-[40px] flex flex-col text-white justify-end gap-[10px] h-full z-20">
-                  <div className="flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
+                  <div className="animate-slide-left flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
                     <div>{lang === "uz" ? "Banner" : lang === "en" ? "Banner" : "Баннер"}</div>
                     <hr className="w-[22px] rotate-90" />
                     <div>{formatDate(slide.created_at)}</div>
@@ -158,10 +179,10 @@ const Home_main = ({ lang }) => {
                       <Eye width={22} height={22} /> {slide.views_count || 0}
                     </div>
                   </div>
-                  <p className="text-[32px] sm:text-[36px] md:text-[38px] lg:text-[42px] text-[#FFD859] font-[700] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
+                  <p className="animate-slide-left text-[32px] sm:text-[36px] md:text-[38px] lg:text-[42px] text-[#FFD859] font-[700] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
                     {getTranslated(slide, 'title')}
                   </p>
-                  <p className="text-[16px] sm:text-[16px] lg:text-[18px] font-[400] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
+                  <p className="animate-slide-left text-[16px] sm:text-[16px] lg:text-[18px] font-[400] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
                     {getTranslated(slide, 'subtitle')}
                   </p>
                 </div>
@@ -170,7 +191,7 @@ const Home_main = ({ lang }) => {
             ))}
           </div>
 
-          <div className="flex gap-[8px] mt-[22px]">
+          <div className="flex gap-[8px] mt-[22px] justify-center">
             {banners.map((_, idx) => (
               <div
                 key={idx}
@@ -180,11 +201,10 @@ const Home_main = ({ lang }) => {
               />
             ))}
           </div>
-        </>
+        </div>
       )}
 
-      {/* E'lonlar bo'limi har doim ko'rinadi */}
-      <div className={`w-full lg:px-[110px] md:px-[55px] px-[20px] ${banners.length > 0 ? "mt-[60px] sm:mt-[80px]" : "mt-[40px]"}`}>
+      <div className={`w-full lg:px-[110px] md:px-[55px] px-[20px] reveal ${banners.length > 0 ? "mt-[60px] sm:mt-[80px]" : "mt-[40px]"}`}>
         <div className="flex flex-row items-center justify-between">
           <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
             {lang === "uz" ? "E'lonlar" : lang === "en" ? "Announcements" : "Объявления"}
@@ -201,7 +221,7 @@ const Home_main = ({ lang }) => {
             <Link
               key={item.id}
               to={`/announcements/${item.id}`}
-              className="pl-[20px] pr-[20px] flex flex-col gap-[10px] py-[30px] w-full border border-[#52525289] rounded-[10px] shadow-lg hover:shadow-xl hover:scale-[102%] active:scale-[99%] duration-300 group cursor-pointer bg-white"
+              className="pl-[20px] pr-[20px] justify-between flex flex-col gap-[10px] py-[30px] w-full border border-[#52525289] rounded-[10px] shadow-lg hover:shadow-xl hover:scale-[102%] active:scale-[99%] duration-300 group cursor-pointer bg-white"
             >
               <div className="flex flex-row items-center text-[16px] sm:text-[18px] text-[#52525289] leading-[130%] gap-[10px]">
                 <div>{formatDate(item.created_at)}</div>
@@ -213,8 +233,8 @@ const Home_main = ({ lang }) => {
               <p className="text-[20px] sm:text-[24px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%] line-clamp-2">
                 {getTranslated(item, 'title')}
               </p>
-              <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%] line-clamp-3">
-                {getTranslated(item, 'short_description') || getTranslated(item, 'description')}
+              <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%] line-clamp-1">
+                {getTranslated(item, 'content')}
               </p>
             </Link>
           ))}
@@ -222,7 +242,7 @@ const Home_main = ({ lang }) => {
       </div>
 
       {/* Yangiliklar bo'limi */}
-      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px]">
+      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px] reveal">
         <div className="flex flex-row items-center justify-between">
           <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
             {lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости"}
@@ -269,7 +289,7 @@ const Home_main = ({ lang }) => {
       </div>
 
       {/* Media bo'limi har doim ko'rinadi */}
-      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px]">
+      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px] reveal mb-[80px]">
         <div className="flex flex-row items-center justify-between mb-5">
           <p className="text-[28px] sm:text-[36px] text-[#303030] font-[700] tracking-tight">Media</p>
           <div className="flex flex-row gap-[10px] sm:gap-[20px]">
