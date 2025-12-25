@@ -4,14 +4,15 @@ import { Link } from "react-router";
 import { News } from '../../Services/news';
 import { AnnouncementsService } from '../../Services/announcements';
 import { MediaService } from '../../Services/media';
+import { BannersService } from '../../Services/banners';
 
 import Loader_main from "../../Components/Loader/loader_main";
 
 const Home_main = ({ lang }) => {
   const [mediaCurrent, setMediaCurrent] = useState(0);
-  const [newsSlides, setNewsSlides] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [mediaItems, setMediaItems] = useState([]);
+  const [banners, setBanners] = useState([]);
   const [playingVideo, setPlayingVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -57,25 +58,20 @@ const Home_main = ({ lang }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [newsData, announcementsData, videoData, photoData] = await Promise.all([
+        const [newsData, announcementsData, videoData, photoData, bannersData] = await Promise.all([
           News.getNews(1),
           AnnouncementsService.getAnnouncements(1),
           MediaService.getVideoGallery(1),
-          MediaService.getGallery(1)
+          MediaService.getGallery(1),
+          BannersService.getBanners(1)
         ]);
 
+        if (bannersData && bannersData.results) {
+          setBanners(bannersData.results);
+        }
+
         if (newsData && newsData.results) {
-          const limitedNews = newsData.results.slice(0, 10);
-          const formattedSlides = limitedNews.map((item) => ({
-            img: item.image || "https://via.placeholder.com/1200x550?text=No+Image",
-            category: lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости",
-            date: formatDate(item.created_at),
-            views: item.views_count || 0,
-            title: getTranslated(item, 'title'),
-            desc: getTranslated(item, 'short_description') || getTranslated(item, 'description'),
-            id: item.id
-          }));
-          setNewsSlides(formattedSlides);
+          // News data is fetched but not used in the slider anymore
         }
 
         if (announcementsData && announcementsData.results) {
@@ -125,12 +121,12 @@ const Home_main = ({ lang }) => {
   // Auto slider faqat yangiliklar mavjud bo'lganda ishlaydi
   const [current, setCurrent] = useState(0);
   useEffect(() => {
-    if (newsSlides.length === 0) return;
+    if (banners.length === 0) return;
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % newsSlides.length);
+      setCurrent((prev) => (prev + 1) % banners.length);
     }, 10000);
     return () => clearInterval(timer);
-  }, [newsSlides.length]);
+  }, [banners.length]);
 
   const handlePosterDot = (idx) => setCurrent(idx);
 
@@ -140,11 +136,11 @@ const Home_main = ({ lang }) => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      {/* Slider faqat yangiliklar bo'lsa ko'rsatiladi */}
-      {newsSlides.length > 0 && (
+      {/* Banner slider */}
+      {banners.length > 0 && (
         <>
           <div className="relative w-full h-[550px] overflow-hidden">
-            {newsSlides.map((slide, idx) => (
+            {banners.map((slide, idx) => (
               <div
                 key={slide.id}
                 className={`absolute w-full h-full transition-opacity duration-1000 ${idx === current ? "opacity-100 z-20" : "opacity-0 z-0"
@@ -153,28 +149,28 @@ const Home_main = ({ lang }) => {
                 <div className="absolute bg-[#303030] opacity-60 w-full h-full z-10" />
                 <div className="absolute w-full xl:pl-[110px] lg:pl-[80px] sm:pl-[60px] pl-[20px] xl:pb-[120px] lg:pb-[80px] sm:pb-[60px] pb-[40px] flex flex-col text-white justify-end gap-[10px] h-full z-20">
                   <div className="flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
-                    <div>{slide.category}</div>
+                    <div>{lang === "uz" ? "Banner" : lang === "en" ? "Banner" : "Баннер"}</div>
                     <hr className="w-[22px] rotate-90" />
-                    <div>{slide.date}</div>
+                    <div>{formatDate(slide.created_at)}</div>
                     <hr className="w-[22px] rotate-90" />
                     <div className="flex flex-row gap-[5px] sm:gap-[7px]">
-                      <Eye width={22} height={22} /> {slide.views}
+                      <Eye width={22} height={22} /> {slide.views_count || 0}
                     </div>
                   </div>
                   <p className="text-[32px] sm:text-[36px] md:text-[38px] lg:text-[42px] text-[#FFD859] font-[700] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
-                    {slide.title}
+                    {getTranslated(slide, 'title')}
                   </p>
                   <p className="text-[16px] sm:text-[16px] lg:text-[18px] font-[400] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
-                    {slide.desc}
+                    {getTranslated(slide, 'subtitle')}
                   </p>
                 </div>
-                <img src={slide.img} alt="slide" className="w-full h-full object-cover" />
+                <img src={slide.image || "https://via.placeholder.com/1200x550?text=No+Image"} alt="slide" className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
 
           <div className="flex gap-[8px] mt-[22px]">
-            {newsSlides.map((_, idx) => (
+            {banners.map((_, idx) => (
               <div
                 key={idx}
                 onClick={() => handlePosterDot(idx)}
@@ -187,7 +183,7 @@ const Home_main = ({ lang }) => {
       )}
 
       {/* E'lonlar bo'limi har doim ko'rinadi */}
-      <div className={`w-full lg:px-[110px] md:px-[55px] px-[20px] ${newsSlides.length > 0 ? "mt-[60px] sm:mt-[80px]" : "mt-[40px]"}`}>
+      <div className={`w-full lg:px-[110px] md:px-[55px] px-[20px] ${banners.length > 0 ? "mt-[60px] sm:mt-[80px]" : "mt-[40px]"}`}>
         <div className="flex flex-row items-center justify-between">
           <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
             {lang === "uz" ? "E'lonlar" : lang === "en" ? "Announcements" : "Объявления"}
