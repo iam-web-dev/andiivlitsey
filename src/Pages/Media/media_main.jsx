@@ -15,12 +15,12 @@ const Media_main = ({ lang }) => {
   const videoContainerRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/gallery/?page=1')
+    fetch('https://ctrl.iivandijonlitsey.uz/api/gallery/?page=1')
       .then(response => response.json())
       .then(json => setPhotos(json.results))
       .catch(error => console.error('Error fetching photos:', error));
 
-    fetch('http://ctrl.iivandijonlitsey.uz/api/video-gallery/?page=1')
+    fetch('https://ctrl.iivandijonlitsey.uz/api/video-gallery/?page=1')
       .then(response => response.json())
       .then(json => setVideos(json.results))
       .catch(error => console.error('Error fetching videos:', error));

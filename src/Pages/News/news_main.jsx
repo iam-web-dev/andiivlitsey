@@ -21,7 +21,7 @@ const News_main = ({ lang }) => {
   const fetchNews = async (page) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://ctrl.iivandijonlitsey.uz/api/news/?page=${page}`);
+      const response = await fetch(`https://ctrl.iivandijonlitsey.uz/api/news/`);
       const data = await response.json();
       setNews(data.results || []);
       setTotalPages(Math.ceil(data.count / 10)); // Assuming page size 10, adjust if needed

@@ -8,7 +8,7 @@ const Team_main = ({ lang }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/leadership/?page=1', {
+    fetch('https://ctrl.iivandijonlitsey.uz/api/leadership/?page=1', {
       method: 'GET',
       headers: {
         'accept': 'application/json',

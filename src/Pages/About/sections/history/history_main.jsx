@@ -10,7 +10,7 @@ const History_main = ({ lang }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/about/1')
+    fetch('https://ctrl.iivandijonlitsey.uz/api/about/1')
       .then(response => response.json())
       .then(setData)
       .catch(error => console.error('Error fetching data:', error));

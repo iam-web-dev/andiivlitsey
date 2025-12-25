@@ -16,7 +16,7 @@ const Single_new = ({ lang }) => {
 
     const fetchSingleNews = async () => {
         try {
-            const response = await fetch(`http://ctrl.iivandijonlitsey.uz/api/news/${id}/`);
+            const response = await fetch(`https://ctrl.iivandijonlitsey.uz/api/news/${id}/`);
             const data = await response.json();
             setSingleNews(data);
             setLoading(false);
@@ -28,7 +28,7 @@ const Single_new = ({ lang }) => {
 
     const fetchOtherNews = async () => {
         try {
-            const response = await fetch('http://ctrl.iivandijonlitsey.uz/api/news/');
+            const response = await fetch('https://ctrl.iivandijonlitsey.uz/api/news/');
             const data = await response.json();
             setOtherNews((data.results || []).filter(item => item.id !== parseInt(id)).slice(0, 4));
         } catch (error) {

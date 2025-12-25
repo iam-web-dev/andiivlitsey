@@ -6,7 +6,7 @@ const Offer_main = ({ lang }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://ctrl.iivandijonlitsey.uz/api/about/?page=0', {
+    fetch('https://ctrl.iivandijonlitsey.uz/api/about/?page=0', {
       method: 'GET',
       headers: {
         'accept': 'application/json',
