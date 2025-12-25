@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { DirectionsService } from '../../Services/directions';
 
 import Loader_main from '../../Components/Loader/loader_main';
@@ -100,9 +100,11 @@ const Single_dir = ({ lang }) => {
           </div>
 
           {/* Ariza tugmasi */}
-          <div className='rounded-[6px] bg-[#FFD859] text-[16px] font-[500] w-full items-center flex py-[20px] justify-center cursor-pointer hover:scale-[101%] active:scale-[99%] duration-300'>
-            {lang === "uz" ? "Ariza qoldirish" : lang === "en" ? "Submit application" : "Оставить заявку"}
-          </div>
+          <Link to='/form' >
+            <div className='rounded-[6px] bg-[#FFD859] text-[16px] font-[500] w-full items-center flex py-[20px] justify-center cursor-pointer hover:scale-[101%] active:scale-[99%] duration-300'>
+              {lang === "uz" ? "Ariza qoldirish" : lang === "en" ? "Submit application" : "Оставить заявку"}
+            </div>
+          </Link>
         </div>
       </div>
     </div>
