@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
+import { Eye } from 'lucide-react'
 import eye from './Images/eye.svg'
 import eye_white from './Images/eye_white.svg'
 import left from './Images/left.svg'
@@ -87,37 +88,44 @@ const News_main = ({ lang }) => {
 
         <div className='flex gap-[21px]'>
           <div className='w-full sm:w-[806px] flex flex-col'>
-            <Link to={`/news/${mainNews.id}`} className='group cursor-pointer w-full sm:w-[806px] h-[224px] sm:h-[538px] duration-300 hover:brightness-[70%] rounded-[6px] bg-black'>
-              <img src={mainNews.image || picture} alt="" className='w-full sm:w-[806px] h-[224px] sm:h-[538px] opacity-[100%] rounded-[6px]' />
-              <div className='ml-[20px] sm:ml-[30px] mt-[-86px] sm:mt-[-122px] brightness-[100%] w-[295px] sm:w-[540px] group-hover:opacity-[200%] flex flex-col gap-[10px] sm:gap-[11px]'>
-                <h1 className='font-inter font-[700] text-[16px] sm:text-[24px] leading-[100%] text-[#FFFFFF]'>{getTranslated(mainNews, 'title')}</h1>
-                <h1 className='flex items-center gap-[10px] font-inter font-[400] leading-[100%] text-[14px] sm:text-[18px] text-[#B7B8B7]'>
-                  {formatDate(mainNews.created_at)} <span>|</span> <img src={eye} alt="" /> <span>{mainNews.views_count || 0}</span>
-                </h1>
+            <Link to={`/news/${mainNews.id}`} className='group cursor-pointer w-full sm:w-[806px] min-h-[224px] sm:h-[538px] duration-300 hover:brightness-[90%] rounded-[6px] bg-black relative overflow-hidden'>
+              <img src={mainNews.image || picture} alt="" className='w-full h-full object-cover opacity-[70%] group-hover:opacity-[80%] duration-300' />
+              <div className='absolute bottom-[20px] sm:bottom-[40px] left-[20px] sm:left-[30px] w-[90%] sm:w-[80%] flex flex-col gap-[10px] sm:gap-[15px] z-10'>
+                <div className='flex items-center gap-[10px] font-inter font-[400] text-[14px] sm:text-[18px] text-[#FFFFFF]/80'>
+                  {formatDate(mainNews.created_at)} <span className='mx-1'>|</span> <img src={eye} alt="" className='w-4 h-4' /> <span>{mainNews.views_count || 0}</span>
+                </div>
+                <h1 className='font-inter font-[700] text-[18px] sm:text-[32px] leading-[120%] text-[#FFFFFF] line-clamp-2'>{getTranslated(mainNews, 'title')}</h1>
+                <p className='font-inter font-[400] text-[14px] sm:text-[18px] text-[#FFFFFF]/90 line-clamp-2'>{getTranslated(mainNews, 'short_description')}</p>
               </div>
             </Link>
 
-            <div className='mt-[30px] w-full sm:w-[806px] flex flex-col sm:flex-wrap gap-x-[0px] sm:gap-x-[20px] gap-y-[0px] sm:gap-y-[0px]'>
+            <div className='mt-[30px] w-full sm:w-[806px] flex flex-col gap-y-[20px]'>
               {listNews.slice(0, 4).map((item, idx) => (
-                <Link to={`/news/${item.id}`} key={idx} className='flex flex-col gap-[8px] sm:gap-[11px] w-full sm:w-[393px]'>
-                  <h1 className='font-inter font-[600] sm:font-[400] leading-[100%] text-[16px] sm:text-[20px] text-[#303030]'>{getTranslated(item, 'title')}</h1>
-                  <h1 className='flex items-center gap-[10px] font-inter font-[400] leading-[100%] text-[14px] sm:text-[18px] text-[#C1C1C1]'>
-                    {formatDate(item.created_at)} <span>|</span> <img src={eye_white} alt="" /> <span>{item.views_count || 0}</span>
-                  </h1>
-                  <div className="w-full h-[1px] bg-[#E0E0E0] my-[25px]"></div>
+                <Link to={`/news/${item.id}`} key={idx} className='flex flex-col gap-[8px] sm:gap-[12px] w-full group'>
+                  <div className='flex flex-row items-center text-[13px] sm:text-[15px] text-[#B7B7B7] gap-[10px]'>
+                    <span>{formatDate(item.created_at)}</span>
+                    <span className='w-[1px] h-[12px] bg-[#E0E0E0]'></span>
+                    <span className='flex items-center gap-1'><Eye size={16} /> {item.views_count || 0}</span>
+                  </div>
+                  <h1 className='font-inter font-[600] text-[18px] sm:text-[22px] text-[#303030] group-hover:text-[#cfa92d] duration-300 line-clamp-2'>{getTranslated(item, 'title')}</h1>
+                  <p className='font-inter font-[400] text-[15px] sm:text-[17px] text-[#525252] line-clamp-2'>{getTranslated(item, 'short_description')}</p>
+                  <div className="w-full h-[1px] bg-[#E0E0E0] mt-[10px]"></div>
                 </Link>
               ))}
             </div>
           </div>
 
-          <div className='hidden sm:block flex flex-col gap-[60px]'>
+          <div className='hidden sm:block flex flex-col gap-[20px]'>
             {listNews.slice(4, 10).map((item, idx) => (
-              <Link to={`/news/${item.id}`} key={idx} className='flex flex-col gap-[8px] sm:gap-[11px] w-full sm:w-[393px]'>
-                <h1 className='font-inter font-[600] sm:font-[400] leading-[100%] text-[16px] sm:text-[20px] text-[#303030]'>{getTranslated(item, 'title')}</h1>
-                <h1 className='flex items-center gap-[10px] font-inter font-[400] leading-[100%] text-[14px] sm:text-[18px] text-[#C1C1C1]'>
-                  {formatDate(item.created_at)} <span>|</span> <img src={eye_white} alt="" /> <span>{item.views_count || 0}</span>
-                </h1>
-                <div className="w-full h-[1px] bg-[#E0E0E0] my-[26px]"></div>
+              <Link to={`/news/${item.id}`} key={idx} className='flex flex-col gap-[8px] sm:gap-[12px] w-full group sm:w-[393px]'>
+                <div className='flex flex-row items-center text-[13px] sm:text-[15px] text-[#B7B7B7] gap-[10px]'>
+                  <span>{formatDate(item.created_at)}</span>
+                  <span className='w-[1px] h-[12px] bg-[#E0E0E0]'></span>
+                  <span className='flex items-center gap-1'><Eye size={16} /> {item.views_count || 0}</span>
+                </div>
+                <h1 className='font-inter font-[600] text-[18px] sm:text-[22px] text-[#303030] group-hover:text-[#cfa92d] duration-300 line-clamp-2'>{getTranslated(item, 'title')}</h1>
+                <p className='font-inter font-[400] text-[15px] sm:text-[17px] text-[#525252] line-clamp-2'>{getTranslated(item, 'short_description')}</p>
+                <div className="w-full h-[1px] bg-[#E0E0E0] mt-[10px]"></div>
               </Link>
             ))}
           </div>

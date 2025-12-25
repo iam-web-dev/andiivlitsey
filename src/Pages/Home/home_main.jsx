@@ -11,6 +11,7 @@ import Loader_main from "../../Components/Loader/loader_main";
 const Home_main = ({ lang }) => {
   const [mediaCurrent, setMediaCurrent] = useState(0);
   const [announcements, setAnnouncements] = useState([]);
+  const [news, setNews] = useState([]);
   const [mediaItems, setMediaItems] = useState([]);
   const [banners, setBanners] = useState([]);
   const [playingVideo, setPlayingVideo] = useState(null);
@@ -71,7 +72,7 @@ const Home_main = ({ lang }) => {
         }
 
         if (newsData && newsData.results) {
-          // News data is fetched but not used in the slider anymore
+          setNews(newsData.results.slice(0, 3));
         }
 
         if (announcementsData && announcementsData.results) {
@@ -215,6 +216,53 @@ const Home_main = ({ lang }) => {
               <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%] line-clamp-3">
                 {getTranslated(item, 'short_description') || getTranslated(item, 'description')}
               </p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Yangiliklar bo'limi */}
+      <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px]">
+        <div className="flex flex-row items-center justify-between">
+          <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
+            {lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости"}
+          </p>
+          <Link
+            to="/news"
+            className="sm:text-[18px] text-[16px] text-[#cfa92d] font-[400] hover:scale-[102%] active:scale-[99%] duration-300"
+          >
+            {lang === "uz" ? "Barchasi" : lang === "en" ? "All" : "Все"}
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px] mt-[20px] sm:mt-[30px]">
+          {news.map((item) => (
+            <Link
+              key={item.id}
+              to={`/news/${item.id}`}
+              className="flex flex-col gap-[15px] group cursor-pointer"
+            >
+              <div className="w-full h-[250px] overflow-hidden rounded-[10px]">
+                <img
+                  src={item.image || "https://via.placeholder.com/400x250?text=No+Image"}
+                  alt={getTranslated(item, 'title')}
+                  className="w-full h-full object-cover group-hover:scale-105 duration-500"
+                />
+              </div>
+              <div className="flex flex-col gap-[8px]">
+                <div className="flex flex-row items-center text-[14px] text-[#52525289] gap-[10px]">
+                  <div>{formatDate(item.created_at)}</div>
+                  <hr className="w-[15px] rotate-90" />
+                  <div className="flex flex-row gap-[5px] items-center">
+                    <Eye width={16} height={16} /> {item.views_count || 0}
+                  </div>
+                </div>
+                <p className="text-[20px] sm:text-[22px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%] line-clamp-2">
+                  {getTranslated(item, 'title')}
+                </p>
+                <p className="text-[15px] sm:text-[16px] text-[#525252] font-[400] leading-[140%] line-clamp-2">
+                  {getTranslated(item, 'short_description')}
+                </p>
+              </div>
             </Link>
           ))}
         </div>

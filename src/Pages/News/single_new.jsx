@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router'
 import picture from './Images/picture.svg'
+import eye from './Images/eye.svg'
 
 const Single_new = ({ lang }) => {
     const { id } = useParams();
@@ -87,6 +88,14 @@ const Single_new = ({ lang }) => {
                             <a href="/">{t.home}</a> <span className='text-gray-400'>/</span> <span className='text-[#cfa92d]'>{t.news}</span>
                         </h1>
                         <h1 className='font-inter font-[700] w-full text-[28px] sm:text-[36px] text-[#303030]'>{getTranslated(singleNews, 'title')}</h1>
+                        <div className='flex flex-row items-center text-[14px] sm:text-[16px] text-[#979797] gap-[15px]'>
+                            <span>{formatDate(singleNews.created_at)}</span>
+                            <span className='w-[1px] h-[15px] bg-[#E0E0E0]'></span>
+                            <div className='flex items-center gap-1'>
+                                <img src={eye} alt="views" className='w-4 h-4' />
+                                <span>{singleNews.views_count || 0}</span>
+                            </div>
+                        </div>
                     </div>
 
                     <img src={singleNews.image || picture} className='mt-[20px] w-full sm:w-[610px] h-[224px] object-cover sm:h-[407px] rounded-[6px]' alt="" fetchPriority="high" />
