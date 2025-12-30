@@ -10,12 +10,12 @@ export const AnnouncementsService = {
             throw error;
         }
     },
-    getAnnouncementById: async (id) => {
+    getAnnouncementBySlug: async (slug) => {
         try {
-            const response = await api.get(`announcements/${id}/`);
+            const response = await api.get(`announcements/${slug}/`);
             return response.data;
         } catch (error) {
-            console.error(`Error fetching announcement with id ${id}:`, error);
+            console.error(`Error fetching announcement with slug ${slug}:`, error);
             throw error;
         }
     }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router";
-import { News } from '../../Services/news';
-import { AnnouncementsService } from '../../Services/announcements';
-import { MediaService } from '../../Services/media';
-import { BannersService } from '../../Services/banners';
+import { News } from "../../Services/news";
+import { AnnouncementsService } from "../../Services/announcements";
+import { MediaService } from "../../Services/media";
+import { BannersService } from "../../Services/banners";
 
 import Loader_main from "../../Components/Loader/loader_main";
 
@@ -22,21 +22,21 @@ const Home_main = ({ lang }) => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
+      rootMargin: "0px 0px -50px 0px",
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+          entry.target.classList.add("active");
         }
       });
     }, observerOptions);
 
-    const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach(el => observer.observe(el));
+    const revealElements = document.querySelectorAll(".reveal");
+    revealElements.forEach((el) => observer.observe(el));
 
-    return () => revealElements.forEach(el => observer.unobserve(el));
+    return () => revealElements.forEach((el) => observer.unobserve(el));
   }, [loading]);
 
   useEffect(() => {
@@ -52,41 +52,84 @@ const Home_main = ({ lang }) => {
   }, [mediaCurrent]);
 
   const monthNames = {
-    uz: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'],
-    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    ru: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr']
+    uz: [
+      "yanvar",
+      "fevral",
+      "mart",
+      "aprel",
+      "may",
+      "iyun",
+      "iyul",
+      "avgust",
+      "sentyabr",
+      "oktyabr",
+      "noyabr",
+      "dekabr",
+    ],
+    en: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    ru: [
+      "yanvar",
+      "fevral",
+      "mart",
+      "aprel",
+      "may",
+      "iyun",
+      "iyul",
+      "avgust",
+      "sentyabr",
+      "oktyabr",
+      "noyabr",
+      "dekabr",
+    ],
   };
 
   const formatDate = (created_at) => {
     const dateObj = new Date(created_at);
     const day = dateObj.getDate();
-    const month = monthNames[lang]?.[dateObj.getMonth()] || monthNames.en[dateObj.getMonth()];
+    const month =
+      monthNames[lang]?.[dateObj.getMonth()] ||
+      monthNames.en[dateObj.getMonth()];
     const year = dateObj.getFullYear();
     return `${day}-${month}, ${year}`;
   };
 
   const getTranslated = (item, field) => {
-    return item[`${field}_${lang}`] || item[field] || '';
+    return item[`${field}_${lang}`] || item[field] || "";
   };
 
   const getYouTubeId = (url) => {
     if (!url) return null;
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+    return match && match[2].length === 11 ? match[2] : null;
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [newsData, announcementsData, videoData, photoData, bannersData] = await Promise.all([
-          News.getNews(1),
-          AnnouncementsService.getAnnouncements(1),
-          MediaService.getVideoGallery(1),
-          MediaService.getGallery(1),
-          BannersService.getBanners(1)
-        ]);
+        const [newsData, announcementsData, videoData, photoData, bannersData] =
+          await Promise.all([
+            News.getNews(1),
+            AnnouncementsService.getAnnouncements(1),
+            MediaService.getVideoGallery(1),
+            MediaService.getGallery(1),
+            BannersService.getBanners(1),
+          ]);
 
         if (bannersData && bannersData.results) {
           setBanners(bannersData.results);
@@ -110,19 +153,19 @@ const Home_main = ({ lang }) => {
           if (videos[i]) {
             interleaved.push({
               ...videos[i],
-              type: 'video',
+              type: "video",
               displayDate: formatDate(videos[i].created_at),
-              displayTitle: getTranslated(videos[i], 'title'),
-              displayImage: videos[i].cover_image
+              displayTitle: getTranslated(videos[i], "title"),
+              displayImage: videos[i].cover_image,
             });
           }
           if (photos[i]) {
             interleaved.push({
               ...photos[i],
-              type: 'photo',
+              type: "photo",
               displayDate: formatDate(photos[i].created_at),
-              displayTitle: getTranslated(photos[i], 'title'),
-              displayImage: photos[i].image
+              displayTitle: getTranslated(photos[i], "title"),
+              displayImage: photos[i].image,
             });
           }
         }
@@ -138,7 +181,10 @@ const Home_main = ({ lang }) => {
     fetchData();
   }, [lang]);
 
-  const visibleAnnouncements = announcements.slice(0, windowWidth < 640 ? 3 : 6);
+  const visibleAnnouncements = announcements.slice(
+    0,
+    windowWidth < 640 ? 3 : 6
+  );
 
   // Auto slider faqat yangiliklar mavjud bo'lganda ishlaydi
   const [current, setCurrent] = useState(0);
@@ -165,13 +211,20 @@ const Home_main = ({ lang }) => {
             {banners.map((slide, idx) => (
               <div
                 key={slide.id}
-                className={`absolute w-full h-full transition-opacity duration-1000 ${idx === current ? "opacity-100 z-20" : "opacity-0 z-0"
-                  }`}
+                className={`absolute w-full h-full transition-opacity duration-1000 ${
+                  idx === current ? "opacity-100 z-20" : "opacity-0 z-0"
+                }`}
               >
                 <div className="absolute bg-[#303030] opacity-60 w-full h-full z-10" />
                 <div className="absolute w-full xl:pl-[110px] lg:pl-[80px] sm:pl-[60px] pl-[20px] xl:pb-[120px] lg:pb-[80px] sm:pb-[60px] pb-[40px] flex flex-col text-white justify-end gap-[10px] h-full z-20">
                   <div className="animate-slide-left flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
-                    <div>{lang === "uz" ? "News" : lang === "en" ? "Yangiliklar" : "Новости"}</div>
+                    <div>
+                      {lang === "uz"
+                        ? "News"
+                        : lang === "en"
+                        ? "Yangiliklar"
+                        : "Новости"}
+                    </div>
                     <hr className="w-[22px] rotate-90" />
                     <div>{formatDate(slide.created_at)}</div>
                     <hr className="w-[22px] rotate-90" />
@@ -179,14 +232,21 @@ const Home_main = ({ lang }) => {
                       <Eye width={22} height={22} /> {slide.views_count || 0}
                     </div>
                   </div>
-                  <p className="animate-slide-left text-[32px] sm:text-[36px] md:text-[38px] lg:text-[42px] text-[#FFD859] font-[700] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
-                    {getTranslated(slide, 'title')}
-                  </p>
+                  <h1 className="animate-slide-left text-[32px] sm:text-[36px] md:text-[38px] lg:text-[42px] text-[#FFD859] font-[700] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
+                    {getTranslated(slide, "title")}
+                  </h1>
                   <p className="animate-slide-left text-[16px] sm:text-[16px] lg:text-[18px] font-[400] xl:max-w-[50%] lg:max-w-[60%] md:max-w-[70%] max-w-[80%] leading-[120%] line-clamp-2">
-                    {getTranslated(slide, 'subtitle')}
+                    {getTranslated(slide, "subtitle")}
                   </p>
                 </div>
-                <img src={slide.image || "https://via.placeholder.com/1200x550?text=No+Image"} alt="slide" className="w-full h-full object-cover" />
+                <img
+                  src={
+                    slide.image ||
+                    "https://via.placeholder.com/1200x550?text=No+Image"
+                  }
+                  alt="slide"
+                  className="w-full h-full object-cover"
+                />
               </div>
             ))}
           </div>
@@ -196,19 +256,28 @@ const Home_main = ({ lang }) => {
               <div
                 key={idx}
                 onClick={() => handlePosterDot(idx)}
-                className={`w-[10px] h-[10px] rounded-full cursor-pointer transition-all duration-300 ${current === idx ? "bg-[#FFD859]" : "bg-gray-400/50"
-                  }`}
+                className={`w-[10px] h-[10px] rounded-full cursor-pointer transition-all duration-300 ${
+                  current === idx ? "bg-[#FFD859]" : "bg-gray-400/50"
+                }`}
               />
             ))}
           </div>
         </div>
       )}
 
-      <div className={`w-full lg:px-[110px] md:px-[55px] px-[20px] reveal ${banners.length > 0 ? "mt-[60px] sm:mt-[80px]" : "mt-[40px]"}`}>
+      <div
+        className={`w-full lg:px-[110px] md:px-[55px] px-[20px] reveal ${
+          banners.length > 0 ? "mt-[60px] sm:mt-[80px]" : "mt-[40px]"
+        }`}
+      >
         <div className="flex flex-row items-center justify-between">
-          <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
-            {lang === "uz" ? "E'lonlar" : lang === "en" ? "Announcements" : "Объявления"}
-          </p>
+          <h2 className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
+            {lang === "uz"
+              ? "E'lonlar"
+              : lang === "en"
+              ? "Announcements"
+              : "Объявления"}
+          </h2>
           <Link
             to="/announcements"
             className="sm:text-[18px] text-[16px] text-[#cfa92d] font-[400] hover:scale-[102%] active:scale-[99%] duration-300"
@@ -220,7 +289,7 @@ const Home_main = ({ lang }) => {
           {visibleAnnouncements.map((item) => (
             <Link
               key={item.id}
-              to={`/announcements/${item.id}`}
+              to={`/announcements/${item.slug}`}
               className="pl-[20px] pr-[20px] justify-between flex flex-col gap-[10px] py-[30px] w-full border border-[#52525289] rounded-[10px] shadow-lg hover:shadow-xl hover:scale-[102%] active:scale-[99%] duration-300 group cursor-pointer bg-white"
             >
               <div className="flex flex-row items-center text-[16px] sm:text-[18px] text-[#52525289] leading-[130%] gap-[10px]">
@@ -231,10 +300,10 @@ const Home_main = ({ lang }) => {
                 </div>
               </div>
               <p className="text-[20px] sm:text-[24px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%] line-clamp-2">
-                {getTranslated(item, 'title')}
+                {getTranslated(item, "title")}
               </p>
               <p className="text-[16px] sm:text-[18px] text-[#525252] font-[400] leading-[130%] line-clamp-1">
-                {getTranslated(item, 'content')}
+                {getTranslated(item, "content")}
               </p>
             </Link>
           ))}
@@ -244,9 +313,9 @@ const Home_main = ({ lang }) => {
       {/* Yangiliklar bo'limi */}
       <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px] reveal">
         <div className="flex flex-row items-center justify-between">
-          <p className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
+          <h2 className="xl:text-[36px] lg:text-[32px] text-[28px] text-[#303030] font-[700] tracking-tight">
             {lang === "uz" ? "Yangiliklar" : lang === "en" ? "News" : "Новости"}
-          </p>
+          </h2>
           <Link
             to="/news"
             className="sm:text-[18px] text-[16px] text-[#cfa92d] font-[400] hover:scale-[102%] active:scale-[99%] duration-300"
@@ -258,13 +327,16 @@ const Home_main = ({ lang }) => {
           {news.map((item) => (
             <Link
               key={item.id}
-              to={`/news/${item.id}`}
+              to={`/news/${item.slug}`}
               className="flex flex-col gap-[15px] group cursor-pointer"
             >
               <div className="w-full h-[250px] overflow-hidden rounded-[10px]">
                 <img
-                  src={item.image || "https://via.placeholder.com/400x250?text=No+Image"}
-                  alt={getTranslated(item, 'title')}
+                  src={
+                    item.image ||
+                    "https://via.placeholder.com/400x250?text=No+Image"
+                  }
+                  alt={getTranslated(item, "title")}
                   className="w-full h-full object-cover group-hover:scale-105 duration-500"
                 />
               </div>
@@ -277,10 +349,10 @@ const Home_main = ({ lang }) => {
                   </div>
                 </div>
                 <p className="text-[20px] sm:text-[22px] text-[#303030] group-hover:text-[#cfa92d] duration-300 font-[700] leading-[130%] line-clamp-2">
-                  {getTranslated(item, 'title')}
+                  {getTranslated(item, "title")}
                 </p>
                 <p className="text-[15px] sm:text-[16px] text-[#525252] font-[400] leading-[140%] line-clamp-2">
-                  {getTranslated(item, 'short_description')}
+                  {getTranslated(item, "short_description")}
                 </p>
               </div>
             </Link>
@@ -291,15 +363,18 @@ const Home_main = ({ lang }) => {
       {/* Media bo'limi har doim ko'rinadi */}
       <div className="w-full lg:px-[110px] md:px-[55px] px-[20px] mt-[80px] reveal mb-[80px]">
         <div className="flex flex-row items-center justify-between mb-5">
-          <p className="text-[28px] sm:text-[36px] text-[#303030] font-[700] tracking-tight">Media</p>
+          <h2 className="text-[28px] sm:text-[36px] text-[#303030] font-[700] tracking-tight">
+            Media
+          </h2>
           <div className="flex flex-row gap-[10px] sm:gap-[20px]">
             <button
               onClick={() => setMediaCurrent((prev) => Math.max(prev - 1, 0))}
               disabled={mediaCurrent === 0}
-              className={`rounded-[6px] flex items-center justify-center w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] ${mediaCurrent === 0
-                ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
-                : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
-                }`}
+              className={`rounded-[6px] flex items-center justify-center w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] ${
+                mediaCurrent === 0
+                  ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
+                  : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
+              }`}
             >
               <ArrowLeft className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
             </button>
@@ -307,14 +382,20 @@ const Home_main = ({ lang }) => {
             <button
               onClick={() =>
                 setMediaCurrent((prev) =>
-                  Math.min(prev + 1, mediaItems.length - (windowWidth < 640 ? 1 : 2))
+                  Math.min(
+                    prev + 1,
+                    mediaItems.length - (windowWidth < 640 ? 1 : 2)
+                  )
                 )
               }
-              disabled={mediaCurrent === mediaItems.length - (windowWidth < 640 ? 1 : 2)}
-              className={`rounded-[6px] flex items-center justify-center w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] ${mediaCurrent === mediaItems.length - (windowWidth < 640 ? 1 : 2)
-                ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
-                : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
-                }`}
+              disabled={
+                mediaCurrent === mediaItems.length - (windowWidth < 640 ? 1 : 2)
+              }
+              className={`rounded-[6px] flex items-center justify-center w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] ${
+                mediaCurrent === mediaItems.length - (windowWidth < 640 ? 1 : 2)
+                  ? "bg-[#E0E0E0] text-[#52525289] cursor-not-allowed"
+                  : "bg-[#FFD859] text-[#303030] cursor-pointer hover:scale-[101%] active:scale-[99%]"
+              }`}
             >
               <ArrowRight className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]" />
             </button>
@@ -325,40 +406,54 @@ const Home_main = ({ lang }) => {
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
-              transform: windowWidth < 640
-                ? `translateX(calc(-${mediaCurrent} * (100% + 15px)))`
-                : `translateX(-${mediaCurrent * 620}px)`
+              transform:
+                windowWidth < 640
+                  ? `translateX(calc(-${mediaCurrent} * (100% + 15px)))`
+                  : `translateX(-${mediaCurrent * 620}px)`,
             }}
           >
             {mediaItems.map((item, idx) => (
               <div
                 key={idx}
-                className={`flex-shrink-0 ${windowWidth < 640 ? "w-full mr-[15px]" : "w-[600px] mr-[20px]"}`}
+                className={`flex-shrink-0 ${
+                  windowWidth < 640 ? "w-full mr-[15px]" : "w-[600px] mr-[20px]"
+                }`}
               >
-                {item.type === 'photo' ? (
+                {item.type === "photo" ? (
                   <Link to="/media" className="block group">
                     <div className="relative w-full h-[250px] sm:h-[400px] rounded-[6px] overflow-hidden">
                       <img
-                        src={item.displayImage || "https://via.placeholder.com/600x400?text=No+Image"}
+                        src={
+                          item.displayImage ||
+                          "https://via.placeholder.com/600x400?text=No+Image"
+                        }
                         alt={item.displayTitle}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     <div className="mt-3 text-[16px] sm:text-[18px] text-[#303030]">
-                      <p className="font-[400] text-[#6F6F6F]">{item.displayDate}</p>
-                      <p className="font-[700] line-clamp-1">{item.displayTitle}</p>
+                      <p className="font-[400] text-[#6F6F6F]">
+                        {item.displayDate}
+                      </p>
+                      <p className="font-[700] line-clamp-1">
+                        {item.displayTitle}
+                      </p>
                     </div>
                   </Link>
                 ) : (
                   <div className="group">
                     <div
                       className="relative w-full h-[250px] sm:h-[400px] rounded-[6px] overflow-hidden bg-black"
-                      onClick={() => playingVideo !== item.id && setPlayingVideo(item.id)}
+                      onClick={() =>
+                        playingVideo !== item.id && setPlayingVideo(item.id)
+                      }
                     >
                       {playingVideo === item.id ? (
                         <iframe
                           className="w-full h-full"
-                          src={`https://www.youtube.com/embed/${getYouTubeId(item.video_url)}?autoplay=1`}
+                          src={`https://www.youtube.com/embed/${getYouTubeId(
+                            item.video_url
+                          )}?autoplay=1`}
                           title={item.displayTitle}
                           frameBorder="0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -367,7 +462,10 @@ const Home_main = ({ lang }) => {
                       ) : (
                         <>
                           <img
-                            src={item.displayImage || "https://via.placeholder.com/600x400?text=No+Image"}
+                            src={
+                              item.displayImage ||
+                              "https://via.placeholder.com/600x400?text=No+Image"
+                            }
                             alt={item.displayTitle}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
@@ -379,9 +477,16 @@ const Home_main = ({ lang }) => {
                         </>
                       )}
                     </div>
-                    <Link to="/media" className="block mt-3 text-[16px] sm:text-[18px] text-[#303030]">
-                      <p className="font-[400] text-[#6F6F6F]">{item.displayDate}</p>
-                      <p className="font-[700] line-clamp-1 hover:text-[#cfa92d] duration-300">{item.displayTitle}</p>
+                    <Link
+                      to="/media"
+                      className="block mt-3 text-[16px] sm:text-[18px] text-[#303030]"
+                    >
+                      <p className="font-[400] text-[#6F6F6F]">
+                        {item.displayDate}
+                      </p>
+                      <p className="font-[700] line-clamp-1 hover:text-[#cfa92d] duration-300">
+                        {item.displayTitle}
+                      </p>
                     </Link>
                   </div>
                 )}

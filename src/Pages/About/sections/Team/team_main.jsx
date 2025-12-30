@@ -60,9 +60,9 @@ const Team_main = ({ lang }) => {
     <div className='w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in'>
       <div className='w-full sm:w-[1220px] sm:h-[706px] h-full flex flex-col gap-[20px] pt-[40px] px-[20px]'>
         <div className='flex flex-col gap-[15px]'>
-          <h1 className='font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150'>
+          <div className='font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150'>
             <a href="/">{t.home}</a> <span className='text-gray-400'>/</span> <span className='text-[#cfa92d]'>{t.leadership}</span>
-          </h1>
+          </div>
           <h1 className='font-inter font-[700] text-[28px] sm:text-[36px] text-[#303030]'>{t.title}</h1>
         </div>
 
@@ -73,21 +73,21 @@ const Team_main = ({ lang }) => {
 
               <div className='flex flex-col gap-[20px] sm:gap-[40px]'>
                 <div className='flex flex-col gap-[4px] sm:gap-[10px]'>
-                  <h1 className='font-inter font-[600] text-[15px] sm:text-[24px] leading-[140%] text-[#303030]'>
+                  <h2 className='font-inter font-[600] text-[15px] sm:text-[24px] leading-[140%] text-[#303030]'>
                     {item[`full_name_${lang}`] || item.full_name_uz || item.full_name}
-                  </h1>
-                  <h1 className='font-inter font-[400] text-[14px] sm:text-[20px] leading-[140%] text-[#303030]'>
+                  </h2>
+                  <div className='font-inter font-[400] text-[14px] sm:text-[20px] leading-[140%] text-[#303030]'>
                     {item[`position_${lang}`] || item.position_uz || item.position}
-                  </h1>
+                  </div>
                 </div>
 
                 <div className='flex flex-col gap-[10px]'>
-                  <h1 className='font-inter font-[600] text-[14px] sm:text-[20px] leading-[140%] text-[#303030]'>
+                  <div className='font-inter font-[600] text-[14px] sm:text-[20px] leading-[140%] text-[#303030]'>
                     {t.reception} <span className='font-[400]'>{item[`reception_day_${lang}`] || item.reception_day_uz || item.reception_day}</span>
-                  </h1>
-                  <h1 className='font-inter font-[600] text-[14px] sm:text-[20px] leading-[140%] text-[#303030] flex flex-col'>
+                  </div>
+                  <div className='font-inter font-[600] text-[14px] sm:text-[20px] leading-[140%] text-[#303030] flex flex-col'>
                     <span>{t.phone}</span> <span className='font-[400]'>{item.phone}</span>
-                  </h1>
+                  </div>
                 </div>
               </div>
             </div>

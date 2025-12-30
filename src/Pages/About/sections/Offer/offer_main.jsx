@@ -43,9 +43,9 @@ const Offer_main = ({ lang }) => {
   const contentText = data[`content_${lang}`] || data.content_uz || data.content;
 
   const breadcrumb = (
-    <h1 className='font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150'>
+    <div className='font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150'>
       <a href="/">{t.home}</a> <span className='text-gray-400'>/</span> <span className='text-[#cfa92d]'>{t.charter}</span>
-    </h1>
+    </div>
   );
 
   const title = (

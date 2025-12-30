@@ -10,12 +10,12 @@ export const News = {
             throw error;
         }
     },
-    getNewsById: async (id) => {
+    getNewsBySlug: async (slug) => {
         try {
-            const response = await api.get(`news/${id}/`);
+            const response = await api.get(`news/${slug}/`);
             return response.data;
         } catch (error) {
-            console.error(`Error fetching news with id ${id}:`, error);
+            console.error(`Error fetching news with slug ${slug}:`, error);
             throw error;
         }
     }

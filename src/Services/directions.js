@@ -10,12 +10,12 @@ export const DirectionsService = {
             throw error;
         }
     },
-    getDirectionById: async (id) => {
+    getDirectionBySlug: async (slug) => {
         try {
-            const response = await api.get(`directions/${id}/`);
+            const response = await api.get(`directions/${slug}/`);
             return response.data;
         } catch (error) {
-            console.error(`Error fetching direction with id ${id}:`, error);
+            console.error(`Error fetching direction with slug ${slug}:`, error);
             throw error;
         }
     }
