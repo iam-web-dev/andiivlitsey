@@ -1,45 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://andiivlitsey.uz/</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <loc>https://iivandijonlitsey.uz/</loc>
   </url>
+
   <url>
-    <loc>https://andiivlitsey.uz/news</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <loc>https://iivandijonlitsey.uz/media</loc>
   </url>
+
   <url>
-    <loc>https://andiivlitsey.uz/media</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://iivandijonlitsey.uz/directions</loc>
   </url>
+
   <url>
-    <loc>https://andiivlitsey.uz/about</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://iivandijonlitsey.uz/news</loc>
   </url>
+
   <url>
-    <loc>https://andiivlitsey.uz/directions</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://iivandijonlitsey.uz/announcements</loc>
   </url>
+
   <url>
-    <loc>https://andiivlitsey.uz/announcements</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://iivandijonlitsey.uz/about</loc>
   </url>
+
   <url>
-    <loc>https://andiivlitsey.uz/form</loc>
-    <lastmod>2025-12-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://iivandijonlitsey.uz/form</loc>
   </url>
+
+  <url>
+    <loc>https://iivandijonlitsey.uz/success</loc>
+  </url>
+
 </urlset>
