@@ -220,9 +220,9 @@ const Home_main = ({ lang }) => {
                   <div className="animate-slide-left flex flex-row items-center text-[16px] sm:text-[18px] leading-[120%] sm:gap-[4px]">
                     <div>
                       {lang === "uz"
-                        ? "News"
-                        : lang === "en"
                         ? "Yangiliklar"
+                        : lang === "en"
+                        ? "News"
                         : "Новости"}
                     </div>
                     <hr className="w-[22px] rotate-90" />

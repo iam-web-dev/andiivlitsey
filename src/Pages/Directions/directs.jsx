@@ -34,17 +34,7 @@ const Directs = ({ lang }) => {
   }
 
   return (
-    <div className="animate-fade-in">
-      <div className="flex flex-row items-center justify-between mb-[30px]">
-        <p className="md:text-[36px] sm:text-[31px] text-[28px] text-[#303030] font-[700] tracking-tight">
-          {lang === "uz"
-            ? "Yo'nalishlar"
-            : lang === "en"
-            ? "Directions"
-            : "Направления"}
-        </p>
-      </div>
-
+    <div className="animate-fade-in -mt-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] w-full">
         {directionsList.map((item) => (
           <div

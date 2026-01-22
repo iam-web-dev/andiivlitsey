@@ -120,22 +120,39 @@ const News_main = ({ lang }) => {
 
   return (
     <div className="w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in">
-      <div className="w-full sm:w-[1220px] overflow-hidden flex flex-col gap-[20px] pt-[40px] sm:px-[0px] px-[20px]">
-        <div className="flex flex-col gap-[15px]">
-          <div className="font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150">
-            <a href="/">{t.home}</a> <span className="text-gray-400">/</span>{" "}
-            <span className="text-[#cfa92d]">{t.news}</span>
+      <div className="w-full max-w-[1260px] overflow-hidden flex flex-col gap-[20px] pt-[40px] px-[20px] lg:px-[20px] xl:px-0">
+        <div className="flex flex-col gap-6 mb-12">
+          <nav className="flex items-center gap-3 text-sm sm:text-base font-medium">
+            <a
+              href="/"
+              className="text-gray-400 hover:text-[#cfa92d] transition-colors"
+            >
+              {t.home}
+            </a>
+            <span className="text-gray-300">/</span>
+            <span className="text-[#cfa92d] font-semibold">{t.news}</span>
+          </nav>
+
+          <div className="relative pl-6">
+            <div className="absolute left-0 top-1 w-1 h-8 bg-[#cfa92d] rounded-full"></div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">
+              {t.news}
+            </h1>
+            <p className="mt-2 text-slate-500 text-base sm:text-lg max-w-2xl leading-relaxed">
+              {lang === "uz"
+                ? "Litsey hayotidagi eng so'nggi va muhim yangiliklar"
+                : lang === "ru"
+                ? "Самые последние и важные новости из жизни лицея"
+                : "The latest and most important news from our lyceum"}
+            </p>
           </div>
-          <h1 className="font-inter font-[700] text-[28px] sm:text-[36px] text-[#303030]">
-            {t.news}
-          </h1>
         </div>
 
-        <div className="flex gap-[21px]">
-          <div className="w-full sm:w-[806px] flex flex-col">
+        <div className="flex flex-col md:flex-row gap-[21px]">
+          <div className="w-full md:flex-[2] flex flex-col">
             <Link
               to={`/news/${mainNews.slug}`}
-              className="group cursor-pointer w-full sm:w-[806px] min-h-[224px] sm:h-[538px] duration-300 hover:brightness-[90%] rounded-[6px] bg-black relative overflow-hidden"
+              className="group cursor-pointer w-full min-h-[224px] sm:h-[400px] md:h-[538px] duration-300 hover:brightness-[90%] rounded-[6px] bg-black relative overflow-hidden"
             >
               <img
                 src={mainNews.image || picture}
@@ -158,7 +175,7 @@ const News_main = ({ lang }) => {
               </div>
             </Link>
 
-            <div className="mt-[30px] w-full sm:w-[806px] flex flex-col gap-y-[20px]">
+            <div className="mt-[30px] w-full flex flex-col gap-y-[20px]">
               {listNews.slice(0, 4).map((item, idx) => (
                 <Link
                   to={`/news/${item.slug}`}
@@ -184,12 +201,12 @@ const News_main = ({ lang }) => {
             </div>
           </div>
 
-          <div className="hidden sm:block flex flex-col gap-[20px]">
+          <div className="hidden md:flex md:flex-[1] flex-col gap-[20px]">
             {listNews.slice(4, 10).map((item, idx) => (
               <Link
                 to={`/news/${item.slug}`}
                 key={idx}
-                className="flex flex-col gap-[8px] sm:gap-[12px] w-full group sm:w-[393px]"
+                className="flex flex-col gap-[8px] sm:gap-[12px] w-full group"
               >
                 <div className="flex flex-row items-center text-[13px] sm:text-[15px] text-[#B7B7B7] gap-[10px]">
                   <span>{formatDate(item.created_at)}</span>
@@ -216,14 +233,14 @@ const News_main = ({ lang }) => {
               <Link
                 to={`/news/${item.slug}`}
                 key={idx}
-                className="group cursor-pointer w-full sm:w-[600px] h-[224px] sm:h-[400px] duration-300 hover:brightness-[70%] rounded-[6px] bg-black"
+                className="group cursor-pointer w-full md:w-1/2 h-[224px] sm:h-[400px] duration-300 hover:brightness-[70%] rounded-[6px] bg-black"
               >
                 <img
                   src={item.image || picture}
                   alt=""
-                  className="w-full sm:w-[600px] h-[224px] sm:h-[400px] opacity-[100%] rounded-[6px]"
+                  className="w-full h-full object-cover opacity-[100%] rounded-[6px]"
                 />
-                <div className="ml-[20px] sm:ml-[30px] mt-[-86px] sm:mt-[-122px] brightness-[100%] w-[295px] sm:w-[540px] group-hover:opacity-[200%] flex flex-col gap-[8px] sm:gap-[11px]">
+                <div className="ml-[20px] sm:ml-[30px] mt-[-86px] sm:mt-[-122px] brightness-[100%] w-[90%] group-hover:opacity-[200%] flex flex-col gap-[8px] sm:gap-[11px]">
                   <h3 className="font-inter font-[700] text-[16px] sm:text-[24px] leading-[100%] text-[#FFFFFF]">
                     {getTranslated(item, "title")}
                   </h3>
@@ -237,14 +254,14 @@ const News_main = ({ lang }) => {
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-[20px] mt-[30px]">
+          <div className="flex flex-col md:flex-row gap-[20px] mt-[30px]">
             {listNews.slice(2, 4).map((item, idx) => (
               <Link
                 to={`/news/${item.slug}`}
                 key={idx}
-                className="flex flex-col gap-[11px] w-full sm:w-[393px] h-[82px]"
+                className="flex flex-col gap-[11px] w-full md:w-1/3"
               >
-                <h3 className="w-full sm:w-[393px] font-inter font-[700] sm:font-[400] leading-[100%] text-[16px] sm:text-[20px] text-[#303030]">
+                <h3 className="w-full font-inter font-[700] sm:font-[400] leading-[100%] text-[16px] sm:text-[20px] text-[#303030]">
                   {getTranslated(item, "title")}
                 </h3>
                 <div className="flex items-center gap-[10px] font-inter font-[400] leading-[100%] text-[14px] sm:text-[18px] text-[#C1C1C1]">
@@ -252,7 +269,7 @@ const News_main = ({ lang }) => {
                   <img src={eye_white} alt="" />{" "}
                   <span>{item.views_count || 0}</span>
                 </div>
-                <div className="block sm:hidden w-full h-[1px] bg-[#E0E0E0]"></div>
+                <div className="block md:hidden w-full h-[1px] bg-[#E0E0E0]"></div>
               </Link>
             ))}
           </div>

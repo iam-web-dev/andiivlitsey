@@ -138,8 +138,8 @@ const Single_new = ({ lang }) => {
 
   return (
     <div className="w-full h-full flex justify-center bg-[#FFFFFF] animate-fade-in">
-      <div className="w-full sm:w-[1220px] h-full overflow-hidden flex flex-col sm:flex-row gap-[20px] pt-[40px] sm:px-[0px] px-[20px]">
-        <div className="flex flex-col w-full sm:w-[807px] h-full">
+      <div className="w-full max-w-[1260px] h-full overflow-hidden flex flex-col md:flex-row gap-[40px] pt-[40px] px-[20px] lg:px-[20px] xl:px-0">
+        <div className="flex flex-col w-full md:flex-[2] h-full">
           <div className="flex flex-col gap-[15px]">
             <h1 className="font-inter font-[600] text-[14px] sm:text-[18px] text-[#000000] hover:text-[#cfa92d] duration-150">
               <a href="/">{t.home}</a> <span className="text-gray-400">/</span>{" "}
@@ -160,7 +160,7 @@ const Single_new = ({ lang }) => {
 
           <img
             src={singleNews.image || picture}
-            className="mt-[20px] w-full sm:w-[610px] h-[224px] object-cover sm:h-[407px] rounded-[6px]"
+            className="mt-[20px] w-full max-w-[800px] h-[224px] object-cover sm:h-[407px] rounded-[6px]"
             alt=""
             fetchPriority="high"
           />
@@ -176,7 +176,7 @@ const Single_new = ({ lang }) => {
           ></p>
         </div>
 
-        <div className="flex flex-col gap-[20px] mt-[43px]">
+        <div className="flex flex-col md:flex-[1] gap-[20px] md:mt-[43px]">
           <h1 className="font-inter font-[700] text-[20px] leading-[140%] text-[#303030]">
             {t.otherNews}
           </h1>

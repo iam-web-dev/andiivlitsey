@@ -5,6 +5,7 @@ import nsd_logo from "../nsd_logo.png";
 import facebookIcon from "./Images/facebook.svg";
 import instagramIcon from "./Images/instagram.svg";
 import telegramIcon from "./Images/telegram.svg";
+import youtubeIcon from "./Images/youtube.svg";
 import { Link } from "react-router";
 
 const Footer_main = ({ lang }) => {
@@ -42,7 +43,7 @@ const Footer_main = ({ lang }) => {
       address: "Manzil",
       email: "Email",
       title: "Ichki ishlar vazirligi Andijon viloyati akademik litseyi",
-      copyright: "© 2018-2025. Barcha huquqlar himoyalangan",
+      copyright: `© 2018-${new Date().getFullYear()}. Barcha huquqlar himoyalangan`,
     },
     ru: {
       social: "Социальные сети",
@@ -51,7 +52,7 @@ const Footer_main = ({ lang }) => {
       email: "Email",
       title:
         "Академический лицей Андижанской области Министерства внутренних дел",
-      copyright: "© 2018-2025. Все права защищены",
+      copyright: `© 2018-${new Date().getFullYear()}. Все права защищены`,
     },
     en: {
       social: "Social Networks",
@@ -60,7 +61,7 @@ const Footer_main = ({ lang }) => {
       email: "Email",
       title:
         "Academic Lyceum of Andijan Region under the Ministry of Internal Affairs",
-      copyright: "© 2018-2025. All rights reserved",
+      copyright: `© 2018-${new Date().getFullYear()}. All rights reserved`,
     },
   };
 
@@ -76,6 +77,7 @@ const Footer_main = ({ lang }) => {
     facebook: facebookIcon,
     instagram: instagramIcon,
     telegram: telegramIcon,
+    youtube: youtubeIcon,
   };
 
   if (loading || !contact) {
@@ -100,7 +102,7 @@ const Footer_main = ({ lang }) => {
                   aria-label={`${
                     link.name_display || link.name
                   } - Andijon IIV litseyi rasmiy sahifasi`}
-                  className="hover:opacity-80 transition-opacity duration-300 flex items-center gap-2 group"
+                  className="hover:opacity-80 transition-opacity duration-300 flex items-center gap-2 group text-white"
                 >
                   <img
                     src={iconMap[link.name]} // Import qilingan ikon
