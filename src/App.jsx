@@ -24,42 +24,74 @@ function App() {
       top: 0,
       left: 0,
       behavior: "smooth",
-    })
+    });
   }, [location.pathname]);
 
   useEffect(() => {
     localStorage.setItem("lang", lang);
   }, [lang]);
+
+  // Define valid base paths to check for 404 visibility
+  const validPaths = [
+    "/",
+    "/media",
+    "/directions",
+    "/news",
+    "/announcements",
+    "/about",
+    "/form",
+    "/success",
+  ];
+
+  // Check if current path matches any valid route pattern
+  // This is a simple check; for nested routes we check if it starts with the base path
+  const is404 =
+    (location.pathname !== "/404" &&
+      !validPaths.some((path) =>
+        path === "/"
+          ? location.pathname === "/"
+          : location.pathname.startsWith(path)
+      )) ||
+    location.pathname === "/404";
+
   return (
     <div>
-      <div className="sticky top-0 z-40 shadow-2xl">
-        <Poster lang={lang} />
-      </div>
-      <Info_section lang={lang} setLang={setLang} />
-      <div className="sticky top-0 z-50 bg-white">
-        <Navbar lang={lang} setLang={setLang} />
-      </div>
-      <div className="md:pb-[140px] pb-[70px]">
-        {/* Body */}
+      {!is404 && (
+        <>
+          <div className="sticky top-0 z-40 shadow-2xl">
+            <Poster lang={lang} />
+          </div>
+          <Info_section lang={lang} setLang={setLang} />
+          <div className="sticky top-0 z-50 bg-white">
+            <Navbar lang={lang} setLang={setLang} />
+          </div>
+        </>
+      )}
+
+      <div
+        className={`overflow-x-hidden ${
+          !is404 ? "md:pb-[140px] pb-[70px]" : ""
+        }`}
+      >
         <Routes>
-          <Route path="/" element={<Home lang={lang} />} /> {/* Yodgorbek */}
-          <Route path="/media/*" element={<Media  lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/" element={<Home lang={lang} />} />
+          <Route path="/media/*" element={<Media lang={lang} />} />
           <Route path="/directions/*" element={<Directions lang={lang} />} />
-          {/* Yodgorbek */}
-          <Route path="/news" element={<News lang={lang} />} /> {/* Ibrohimjon */}
-          <Route path="/news/:id" element={<Single_new lang={lang} />} /> {/* Ibrohimjon */}
-          <Route path="/announcements/*" element={<Announcements lang={lang} />} />
-          {/* Yodgorbek */}
-          <Route path="/about/*" element={<About  lang={lang} />} /> {/* Ibrohimjon */}
-          <Route path="/form" element={<Form  lang={lang} />} /> {/* Ibrohimjon */}
-          <Route path="/success" element={<Success  lang={lang} />} /> {/* Ibrohimjon */}
-          <Route path="*" element={<Not_found  lang={lang} />} /> {/* Ibrohimjon */}
+          <Route path="/news" element={<News lang={lang} />} />
+          <Route path="/news/:slug" element={<Single_new lang={lang} />} />
+          <Route
+            path="/announcements/*"
+            element={<Announcements lang={lang} />}
+          />
+          <Route path="/about/*" element={<About lang={lang} />} />
+          <Route path="/form" element={<Form lang={lang} />} />
+          <Route path="/success" element={<Success lang={lang} />} />
+          <Route path="/404" element={<Not_found lang={lang} />} />
+          <Route path="*" element={<Not_found lang={lang} />} />
         </Routes>
       </div>
-      <div>
-        {/* Footer */}
-        <Footer /> {/* Ibrohimjon */}
-      </div>
+
+      {!is404 && <Footer lang={lang} />}
     </div>
   );
 }
