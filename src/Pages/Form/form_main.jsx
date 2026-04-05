@@ -222,7 +222,7 @@ const Form_main = ({ lang }) => {
                 onChange={handleChange}
                 className='custom-select w-full h-[52px] px-4 border border-[#E0E0E0] bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300'
               >
-                {[14, 15, 16, 17, 18, 19, '19+'].map(age => (
+                {[14, 15, 16].map(age => (
                   <option key={age} value={age}>{age}</option>
                 ))}
               </select>
@@ -275,7 +275,6 @@ const Form_main = ({ lang }) => {
               >
                 <option value='uz'>O'zbekcha</option>
                 <option value='ru'>Ruscha</option>
-                <option value='en'>Inglizcha</option>
               </select>
             </div>
           </div>
