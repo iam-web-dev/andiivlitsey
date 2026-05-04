@@ -115,11 +115,11 @@ const Navbar_main = ({ lang, setLang }) => {
                 )}
               </div>
             ))}
-            <Link to={"/form"} className={`xl:px-[20px] xl:py-[15px] lg:px-[13px] lg:py-[11px] md:px-[10px] md:py-[8px] whitespace-nowrap rounded-[5px] bg-[#FFD859] hover:bg-[#14386F] hover:text-white duration-300`} >
+            {/* <Link to={"/form"} className={`xl:px-[20px] xl:py-[15px] lg:px-[13px] lg:py-[11px] md:px-[10px] md:py-[8px] whitespace-nowrap rounded-[5px] bg-[#FFD859] hover:bg-[#14386F] hover:text-white duration-300`} >
               <p className="xl:text-[16px] lg:text-[13px] md:text-[12px] font-[500]">
                 {lang === "uz" ? "Ariza qoldirish" : lang === "en" ? "Submit application" : "Оставить заявку"}
               </p>
-            </Link>
+            </Link> */}
           </div>
 
           <div className="md:hidden flex items-center z-[101]">

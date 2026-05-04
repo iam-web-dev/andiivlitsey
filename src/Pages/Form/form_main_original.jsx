@@ -155,7 +155,7 @@ const Form_main = ({ lang }) => {
   };
 
   const t = {
-    title: { uz: "Ariza qoldirish muddati 15 aprelgacha.", ru: "Оставить заявку | 15 Aprel", en: "Leave an application | Deadline April 15 " },
+    title: { uz: "Ariza qoldirish", ru: "Оставить заявку", en: "Leave an application" },
     fullName: { uz: "To'liq ism (familiya, ism, otasining ismi)", ru: "Полное имя (фамилия, имя, отчество)", en: "Full name (last name, first name, patronymic)" },
     fullNamePlaceholder: { uz: "Ismingizni kiriting", ru: "Введите ваше имя", en: "Enter your name" },
     phone: { uz: "Telefon raqami", ru: "Номер телефона", en: "Phone number" },
@@ -174,7 +174,142 @@ const Form_main = ({ lang }) => {
       <div className='w-full sm:w-[1220px] h-full flex gap-[40px] flex-col items-center px-4'>
         <h1 className='font-inter font-[700] text-[36px] text-[#303030] text-center'>{t.title[lang] || t.title.uz}</h1>
 
+        <form
+          onSubmit={handleSubmit}
+          className='w-full max-w-[500px] flex flex-col gap-6'
+        >
+          {/* Full Name */}
+          <div className='flex flex-col'>
+            <label htmlFor='fullName' className='text-[#6F6F6F] font-[400] mb-2'>
+              {t.fullName[lang] || t.fullName.uz}
+            </label>
+            <input
+              type='text'
+              id='fullName'
+              value={formData.fullName}
+              onChange={handleChange}
+              className={`w-full h-[52px] px-4 border ${errors.fullName ? 'border-red-500' : 'border-[#E0E0E0]'} bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300`}
+              placeholder={t.fullNamePlaceholder[lang] || t.fullNamePlaceholder.uz}
+            />
+            {errors.fullName && <p className='text-red-500 text-xs mt-1'>{errors.fullName}</p>}
+          </div>
 
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            {/* Phone Number */}
+            <div className='flex flex-col'>
+              <label htmlFor='phone' className='text-[#6F6F6F] font-[400] mb-2'>
+                {t.phone[lang] || t.phone.uz}
+              </label>
+              <input
+                type='tel'
+                id='phone'
+                value={formData.phone}
+                onChange={handleChange}
+                className={`w-full h-[52px] px-4 border ${errors.phone ? 'border-red-500' : 'border-[#E0E0E0]'} bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300`}
+                placeholder='+998 (99) 999 99 99'
+              />
+              {errors.phone && <p className='text-red-500 text-xs mt-1'>{errors.phone}</p>}
+            </div>
+
+            {/* Age Select */}
+            <div className='flex flex-col'>
+              <label htmlFor='age' className='text-[#6F6F6F] font-[400] mb-2'>
+                {t.age[lang] || t.age.uz}
+              </label>
+              <select
+                id='age'
+                value={formData.age}
+                onChange={handleChange}
+                className='custom-select w-full h-[52px] px-4 border border-[#E0E0E0] bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300'
+              >
+                {[14, 15, 16].map(age => (
+                  <option key={age} value={age}>{age}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Parent Phone Number */}
+          <div className='flex flex-col'>
+            <label htmlFor='parentPhone' className='text-[#6F6F6F] font-[400] mb-2'>
+              {t.parentPhone[lang] || t.parentPhone.uz}
+            </label>
+            <input
+              type='tel'
+              id='parentPhone'
+              value={formData.parentPhone}
+              onChange={handleChange}
+              className={`w-full h-[52px] px-4 border ${errors.parentPhone ? 'border-red-500' : 'border-[#E0E0E0]'} bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300`}
+              placeholder='+998 (99) 999 99 99'
+            />
+            {errors.parentPhone && <p className='text-red-500 text-xs mt-1'>{errors.parentPhone}</p>}
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='flex flex-col'>
+              <label htmlFor='direction' className='text-[#6F6F6F] font-[400] mb-2'>
+                {t.direction[lang] || t.direction.uz}
+              </label>
+              <select
+                id='direction'
+                value={formData.direction}
+                onChange={handleChange}
+                className='custom-select truncate w-full overflow-x-hidden h-[52px] pl-4 pr-8 border border-[#E0E0E0] bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300'
+              >
+                {directions.map(dir => (
+                  <option key={dir.id} value={dir.id}>{dir[`title_${lang}`].length > 30 ? dir[`title_${lang}`].slice(0, 30) + '...' : dir[`title_${lang}`]}</option>
+                ))}
+              </select>
+              {errors.direction && <p className='text-red-500 text-xs mt-1'>{errors.direction}</p>}
+            </div>
+
+            <div className='flex flex-col'>
+              <label htmlFor='language' className='text-[#6F6F6F] font-[400] mb-2'>
+                {t.language[lang] || t.language.uz}
+              </label>
+              <select
+                id='language'
+                value={formData.language}
+                onChange={handleChange}
+                className='custom-select w-full h-[52px] px-4 border border-[#E0E0E0] bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300'
+              >
+                <option value='uz'>O'zbekcha</option>
+                <option value='ru'>Ruscha</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Message Textarea */}
+          <div className='flex flex-col'>
+            <label htmlFor='message' className='text-[#6F6F6F] font-[400] mb-2'>
+              {t.message[lang] || t.message.uz}
+            </label>
+            <textarea
+              id='message'
+              value={formData.message}
+              onChange={handleChange}
+              className='w-full min-h-[100px] p-4 border border-[#E0E0E0] bg-[#F4F4F4] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFD859] transition duration-300'
+              placeholder={t.messagePlaceholder[lang] || t.messagePlaceholder.uz}
+            ></textarea>
+          </div>
+
+          {/* Submit Button */}
+          <div className='pt-2'>
+            <button
+              type='submit'
+              disabled={loading}
+              className={`w-full cursor-pointer h-[52px] ${loading ? 'bg-gray-400' : 'bg-[#FFD859] hover:bg-[#ffcf33]'} font-[600] rounded-md text-[#303030] text-[16px] transition duration-300 flex items-center justify-center gap-2`}
+            >
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-[#303030] border-t-transparent rounded-full animate-spin"></div>
+                  {t.submitting[lang] || t.submitting.uz}
+                </>
+              ) : (t.submit[lang] || t.submit.uz)}
+            </button>
+          </div>
+        </form>
+        
       </div>
     </div>
   );
